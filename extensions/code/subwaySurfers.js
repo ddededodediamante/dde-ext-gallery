@@ -18,7 +18,6 @@
     video.src = 'https://files.catbox.moe/77br5a.mp4';
     video.autoplay = true;
     video.loop = true;
-    video.muted = true;
     video.currentTime = 14;
     video.style.position = 'fixed';
     video.style.zIndex = '999999';

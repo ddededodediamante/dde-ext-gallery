@@ -37,6 +37,10 @@ async function copyExt(id) {
     await navigator.clipboard.writeText(data);
 }
 
+function openURL(url) {
+    window.location.href = url;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/extensions/extensions.json')
         .then(response => {
@@ -60,19 +64,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (ext.canBeUsedOn.tw === true) {
                     nameDiv += `
-                    <a href="https://turbowarp.org">
+                    <button onclick="openURL('https://turbowarp.org')">
                       <img src = "/src/static/icons/tw.svg" alt = "TurboWarp" />
-                    </a>`;
+                    </button>`;
                 }
                 if (ext.canBeUsedOn.pm === true) {
                     nameDiv += `
-                    <a href="https://penguinmod.com">
+                    <button onclick="openURL('https://penguinmod.com')">
                       <img src="/src/static/icons/pm.svg" alt="PenguinMod" />
-                    </a>`;
+                    </button>`;
                 }
                 if (ext.unfinished === true) {
                     nameDiv += `
-                    <a><img src="/src/static/icons/hammer.svg" alt="Unfinished, working on it" /></a>`
+                    <button disabled title="Work in progress">
+                      <img src="/src/static/icons/hammer.svg" />
+                    </a>`
                 }
 
                 nameDiv += `
