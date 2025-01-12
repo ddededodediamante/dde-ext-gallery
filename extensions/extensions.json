@@ -16,9 +16,7 @@
     "canBeUsedOn": {
       "tw": true,
       "pm": true
-    },
-    "imgFormat": "png",
-    "unfinished": true
+    }
   },
   {
     "id": "poopExtension",
