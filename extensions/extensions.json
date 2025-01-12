@@ -12,7 +12,7 @@
   {
     "id": "sweetAlert2",
     "name": "Sweet Alerts",
-    "description": "Display customizable alerts and popups (Unfinished)",
+    "description": "Display customizable alerts and popups",
     "canBeUsedOn": {
       "tw": true,
       "pm": true
