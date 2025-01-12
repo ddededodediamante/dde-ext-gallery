@@ -54,6 +54,23 @@ button:active:not(:disabled) {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+input {
+  font-size: 22px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid white;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 10px;
+}
+
+input:disabled {
+  cursor: default;
+}
+
 #tagthing {
   display: flex;
   flex-direction: row;
