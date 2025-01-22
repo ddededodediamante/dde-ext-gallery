@@ -1,5 +1,5 @@
 (function (Scratch) {
-  // This extension was made by ddededodediamante, sweetalert2 was not made by him
+  // This extension was made by ddededodediamante, sweetalert2 was not.
   // Visit SweetAlert2 on sweetalert2.github.io
 
   (async function () {

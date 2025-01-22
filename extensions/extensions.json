@@ -7,7 +7,8 @@
       "tw": true,
       "pm": true
     },
-    "imgFormat": "png"
+    "imgFormat": "png",
+    "tags": ["sprites", "events", "change", "control"]
   },
   {
     "id": "sweetAlert2",
@@ -16,7 +17,19 @@
     "canBeUsedOn": {
       "tw": true,
       "pm": true
-    }
+    },
+    "tags": ["customizable", "alerts", "display"]
+  },
+  {
+    "id": "stringMutilation",
+    "name": "String Mutilation",
+    "description": "Change a string in various ways.",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "imgFormat": "png",
+    "tags": ["string", "text", "change", "control"]
   },
   {
     "id": "poopExtension",
@@ -25,7 +38,8 @@
     "canBeUsedOn": {
       "tw": true,
       "pm": true
-    }
+    },
+    "tags": ["joke", "fun"]
   },
   {
     "id": "subwaySurfers",
@@ -35,6 +49,7 @@
       "tw": true,
       "pm": true
     },
-    "imgFormat": "png"
+    "imgFormat": "png",
+    "tags": ["joke", "fun"]
   }
 ]

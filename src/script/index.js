@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!data) throw new Error('Extensions data is empty');
 
       extensions = data;
+
       renderExtensions(extensions);
     })
     .catch((error) => {
@@ -61,8 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     gallery.innerHTML = '';
 
     if (extList?.length === 0) {
-      gallery.innerHTML = '<strong>No extensions found.</strong>';
-      return;
+      return gallery.innerHTML = `<h2>No extensions found.</h2>`;
     }
 
     extList.forEach((ext) => {
@@ -112,13 +112,15 @@ document.addEventListener('DOMContentLoaded', function () {
   window.filterExtensions = function () {
     const query = document
       .getElementById('search-bar')
-      .value.toLowerCase()
-      .trim();
-    const filteredExtensions = extensions.filter(
-      (ext) =>
-        ext.name.toLowerCase().includes(query) ||
-        (ext.description && ext.description.toLowerCase().includes(query))
+      .value.toLowerCase().trim();
+    
+    renderExtensions(
+      extensions.filter(
+        ext =>
+          ext.name.toLowerCase().includes(query) ||
+          ext.description.toLowerCase().includes(query) ||
+          (ext?.tags ?? []).includes(query)
+      )
     );
-    renderExtensions(filteredExtensions);
   };
 });
