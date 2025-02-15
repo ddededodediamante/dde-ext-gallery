@@ -177,6 +177,7 @@
               },
             },
             blockIconURI: cogURI,
+            hideFromPalette: true,
           },
           '---',
           {
