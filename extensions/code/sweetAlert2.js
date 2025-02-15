@@ -56,8 +56,7 @@
         showDenyButton: false,
         allowEscapeKey: true,
         allowOutsideClick: true,
-        animation: true,
-        html: '',
+        animation: true
       };
 
       this.globalConfig = { ...this.defaultConfig };
