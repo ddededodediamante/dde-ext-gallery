@@ -1,6 +1,12 @@
 (function (Scratch) {
   // Made by ddededodediamante
 
+  if (!Scratch.extensions.unsandboxed) {
+    window.alert('The extension "Sprite Controller" must be ran unsandboxed!');
+    throw new Error('The extension "Sprite Controller" must be ran unsandboxed!');
+  }
+
+  const isPM = Scratch.extensions?.isPenguinMod ?? false;
   const runtime = Scratch.vm.runtime;
 
   const rightIcon =
@@ -8,7 +14,6 @@
   const leftIcon =
     'https://turbowarp.org/static/blocks-media/default/rotate-left.svg';
 
-  const isPM = Scratch.extensions?.isPenguinMod ?? false;
   if (isPM) {
     var clickFlag =
       'https://studio.penguinmod.com/static/blocks-media/blue-flag.svg';
@@ -19,10 +24,6 @@
 
   const motion = runtime.ext_scratch3_motion;
   const looks = runtime.ext_scratch3_looks;
-
-  if (!Scratch.extensions.unsandboxed) {
-    throw new Error('Extension must run unsandboxed!');
-  }
 
   function getSpriteByName(name) {
     if (name === '_stage_') {

@@ -32,6 +32,16 @@
     "tags": ["string", "text", "change", "control"]
   },
   {
+    "id": "dateFormat",
+    "name": "Date Format",
+    "description": "Manage & format dates and time",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "tags": ["date", "day", "time", "format", "pretty"]
+  },
+  {
     "id": "poopExtension",
     "name": "Poop Extension",
     "description": "The best poop ever",

@@ -1,11 +1,16 @@
-(function (Scratch) {
+(async function (Scratch) {
   "use strict";
+
   if (!Scratch.extensions.unsandboxed)
     throw new Error("This extension must run unsandboxed!");
+
+  var ScratchBlockly;
 
   // Thanks sharkpool for original patch!
   if (Scratch.gui)
     Scratch.gui.getBlockly().then((SB) => {
+      ScratchBlockly = SB;
+
       const makeButtocksShape = (width, height) => {
         width -= 18;
         height /= 2;
@@ -14,9 +19,8 @@
 
       const makeHexagonShape = (width, height) => {
         width -= 18;
-        return `M 9 0 l -10 10 v ${height - 20} l 10 10 h ${width} l 10 -10 v -${
-          height - 20
-        } l -10 -10 h -${width} z`;
+        return `M 9 0 l -10 10 v ${height - 20} l 10 10 h ${width} l 10 -10 v -${height - 20
+          } l -10 -10 h -${width} z`;
       };
 
       const makeRoundyPuzzleShape = (width, height) => {
@@ -26,15 +30,7 @@
         return `M 20 0 q -10 0 -10 ${height} q -10 0 -10 10 q 0 10 10 10 q 0 ${height} 10 ${height} H ${width} q 10 0 10 -${height} q 10 0 10 -10 q 0 -10 -10 -10 q 0 -${height} -10 -${height} H 20 Z`;
       };
 
-      const makeWeirdCommandShape = (width, height) => {
-        width /= 2;
-        return `M 0 0 V ${
-          height - 10
-        } l ${width} 10 l ${width} -10 V 0 l -${width} 10 l -${width} -10 Z`;
-      };
-
       const ogRender = SB.BlockSvg.prototype.render;
-      console.log(SB.BlockSvg.prototype);
       SB.BlockSvg.prototype.render = function (...args) {
         const data = ogRender.call(this, ...args);
 
@@ -50,11 +46,6 @@
 
           if (this?.outputConnection?.check_?.length > 0) {
             this.svgPath_.setAttribute("d", getShape(this));
-          } else {
-            this.svgPath_.setAttribute(
-              "d",
-              makeWeirdCommandShape(this.width, this.height)
-            );
           }
 
           this.inputList.forEach((input) => {
@@ -122,7 +113,34 @@
               },
             },
           },
+          {
+            opcode: "shapeshifting",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "i am [MODE]",
+            canCompile: false,
+            arguments: {
+              MODE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'MODE'
+              },
+            },
+          },
         ],
+        menus: {
+          MODE: {
+            acceptReporters: true,
+            items: [
+              {
+                text: 'statement',
+                value: 'STATEMENT'
+              },
+              {
+                text: 'output',
+                value: 'OUTPUT'
+              }
+            ]
+          },
+        }
       };
     }
 
@@ -151,9 +169,39 @@
     }
 
     ifThenDoNothing(args) {
-      if (args.BOOLEAN) "do nothing";
+      if (args.BOOLEAN === true) "do nothing";
+    }
+
+    shapeshifting(args) {
+      if (args.MODE === 'STATEMENT') {
+        window.alert('Statement!');
+      } else return Math.random();
     }
   }
 
-  Scratch.extensions.register(new ddeTestExt());
+  await Scratch.extensions.register(new ddeTestExt());
+
+  setTimeout(() => {
+    ScratchBlockly.Blocks['ddeTestExt_shapeshifting'].onchange = function (event) {
+      if (
+        !this.workspace ||
+        event.type !== 'change' ||
+        event?.blockId !== this?.childBlocks_?.at(0)?.id
+      ) return;
+
+      if (event.name === "MODE" && event.element === 'field') {
+        this.unplug(true);
+
+        if (event.newValue === "STATEMENT") {
+          this.setOutput(false);
+          this.setPreviousStatement(true);
+          this.setNextStatement(true);
+        } else if (event.newValue === "OUTPUT") {
+          this.setPreviousStatement(false);
+          this.setNextStatement(false);
+          this.setOutput(true, ["Number"]);
+        }
+      }
+    };
+  }, 500);
 })(Scratch);
