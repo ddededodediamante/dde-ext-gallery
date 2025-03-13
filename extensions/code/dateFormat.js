@@ -12,10 +12,11 @@
   // Thanks sharkpool for original patch!
   if (Scratch.gui)
     Scratch.gui.getBlockly().then((SB) => {
-      const makeButtocksShape = (width, height) => {
-        width -= 16;
+      const makeShape = (width, height) => {
+        height -= 20;
         height /= 2;
-        return `M 9 0 a 1 1 0 0 0 0 ${height} a 1 1 0 0 0 0 ${height} h ${width} a 1 1 0 0 0 0 -${height} a 1 1 0 0 0 0 -${height} h -${width} z`;
+        width -= 20;
+        return `M 20 0 q -10 0 -10 ${height} q -10 0 -10 10 q 0 10 10 10 q 0 ${height} 10 ${height} H ${width} q 10 0 10 -${height} q 10 0 10 -10 q 0 -10 -10 -10 q 0 -${height} -10 -${height} H 20 Z`;
       };
 
       const ogRender = SB.BlockSvg.prototype.render;
@@ -27,7 +28,7 @@
             this?.outputConnection?.check_?.length > 0 &&
             ['currentDate','createDate','addTime'].some(v => this.type.endsWith(v))
           ) {
-            this.svgPath_.setAttribute("d", makeButtocksShape(this.width, this.height));
+            this.svgPath_.setAttribute("d", makeShape(this.width, this.height));
           }
 
           this.inputList.forEach((input, index) => {
@@ -37,7 +38,7 @@
               if (block?.parentBlock_.type === 'ddeDateFormat_createDate') return;
               if (block?.parentBlock_.type === 'ddeDateFormat_formatDate' && index !== 0) return;
               if (block?.parentBlock_.type === 'ddeDateFormat_addTime' && index !== 1) return;
-              block.svgPath_.setAttribute("d", makeButtocksShape(block.width, block.height));
+              block.svgPath_.setAttribute("d", makeShape(block.width, block.height));
             }
           });
         }
