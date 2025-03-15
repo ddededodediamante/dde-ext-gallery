@@ -2,7 +2,7 @@ async function getExtCode(id) {
   return await fetch(`/extensions/code/${id}.js`)
     .then((response) => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       } else return response.text();
     })
     .then((data) => {
@@ -17,10 +17,10 @@ async function getExtCode(id) {
 async function downloadExt(id) {
   const data = await getExtCode(id);
 
-  const blob = new Blob([data], { type: 'text/javascript' });
+  const blob = new Blob([data], { type: "text/javascript" });
   const url = URL.createObjectURL(blob);
 
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
   a.download = `${id}.js`;
   document.body.appendChild(a);
@@ -37,38 +37,42 @@ async function copyExt(id) {
   await navigator.clipboard.writeText(data);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+async function copyUrlExt(id) {
+  await navigator.clipboard.writeText(`${window.location.origin}/extensions/code/${id}.js`);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
   let extensions = [];
 
-  fetch('/extensions/extensions.json')
+  fetch("/extensions/extensions.json")
     .then((response) => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       } else return response.json();
     })
     .then((data) => {
-      if (!data) throw new Error('Extensions data is empty');
+      if (!data) throw new Error("Extensions data is empty");
 
       extensions = data;
 
       renderExtensions(extensions);
     })
     .catch((error) => {
-      console.error('Error fetching extensions:', error);
+      console.error("Error fetching extensions:", error);
     });
 
   function renderExtensions(extList) {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = '';
+    const gallery = document.getElementById("gallery");
+    gallery.innerHTML = "";
 
     if (extList?.length === 0) {
-      return gallery.innerHTML = `<h2>No extensions found.</h2>`;
+      return (gallery.innerHTML = `<h2>No extensions found.</h2>`);
     }
 
     extList.forEach((ext) => {
-      const newElement = document.createElement('div');
+      const newElement = document.createElement("div");
       newElement.id = ext.id;
-      newElement.className = 'extension';
+      newElement.className = "extension";
 
       let nameDiv = `<div id="name">\n<p>${ext.name}</p>`;
 
@@ -94,16 +98,17 @@ document.addEventListener('DOMContentLoaded', function () {
       nameDiv += `</div>
       <p class="description">${ext.description}</p>`;
 
-      newElement.innerHTML = `<img src="/extensions/thumbnail/${ext.id}.${
-        ext.imgFormat ?? 'svg'
-      }" alt="${ext.name}" id="thumbnail" />
+      newElement.innerHTML = `
+      <div class="thumbnail-wrapper">
+        <img src="/extensions/thumbnail/${ext.id}.${ext.imgFormat ?? "svg"}" alt="${ext.name}" id="thumbnail" />
+        <div id="buttons">
+          <button onclick="downloadExt('${ext.id}')">Download</button>
+          <button onclick="copyExt('${ext.id}')">Copy</button>
+          <button onclick="copyUrlExt('${ext.id}')">URL</button>
+        </div>
+      </div>
 
-      ${nameDiv}
-
-      <div id="buttons">
-      <button onclick="downloadExt('${ext.id}')">Download</button>
-      <button onclick="copyExt('${ext.id}')">Copy</button>
-      </div>`;
+      ${nameDiv}`;
 
       gallery.appendChild(newElement);
     });
@@ -111,12 +116,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.filterExtensions = function () {
     const query = document
-      .getElementById('search-bar')
-      .value.toLowerCase().trim();
-    
+      .getElementById("search-bar")
+      .value.toLowerCase()
+      .trim();
+
     renderExtensions(
       extensions.filter(
-        ext =>
+        (ext) =>
           ext.name.toLowerCase().includes(query) ||
           ext.description.toLowerCase().includes(query) ||
           (ext?.tags ?? []).includes(query)

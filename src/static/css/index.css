@@ -99,6 +99,7 @@ div#buttons {
 }
 
 div.extension {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -106,7 +107,6 @@ div.extension {
   align-items: center;
   justify-content: space-between;
   max-width: 300px;
-  min-height: 370px;
   padding: 10px;
   gap: 20px;
   border-radius: 10px;
@@ -170,4 +170,27 @@ div#name button img {
 ::-webkit-scrollbar-track {
   background: #1d2127;
   border-radius: 6px;
+}
+
+div.thumbnail-wrapper {
+  position: relative;
+  display: flex;
+}
+
+div#buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+}
+
+.thumbnail-wrapper:hover div#buttons {
+  opacity: 1;
 }
