@@ -4,13 +4,9 @@
   if (!Scratch.extensions.unsandboxed)
     throw new Error("This extension must run unsandboxed!");
 
-  var ScratchBlockly;
-
   // Thanks sharkpool for original patch!
   if (Scratch.gui)
     Scratch.gui.getBlockly().then((SB) => {
-      ScratchBlockly = SB;
-
       const makeButtocksShape = (width, height) => {
         width -= 18;
         height /= 2;
@@ -57,7 +53,40 @@
         }
 
         return data;
+      
+      
       };
+
+      setTimeout(() => {
+        SB.Blocks['ddeTestExt_shapeshifting'].onchange = function (event) {
+          if (
+            !this.workspace ||
+            event.type !== 'change' ||
+            event?.blockId !== this?.childBlocks_?.at(0)?.id
+          ) return;
+    
+          if (event.name === "MODE" && event.element === 'field') {
+            this.unplug(true);
+            if (event.newValue === "STATEMENT") {
+              this.setOutput(false);
+              this.setPreviousStatement(true);
+              this.setNextStatement(true);
+            } else if (event.newValue === "OUTPUT") {
+              this.setPreviousStatement(false);
+              this.setNextStatement(false);
+              this.setOutput(true, ["Number"]);
+            }
+          }
+        };
+        SB.Blocks['ddeTestExt_diarrhea'] = {
+          init: function() {
+            this.appendDummyInput('')
+              .appendField('diarrhea');
+            this.setColour('#6d5953');
+            this.setTooltip('tooltip');
+          }
+        };
+      }, 500);
     });
 
   class ddeTestExt {
@@ -125,6 +154,10 @@
               },
             },
           },
+          {
+            blockType: Scratch.BlockType.XML,
+            xml: '<block type="ddeTestExt_diarrhea"></block>'
+          },
         ],
         menus: {
           MODE: {
@@ -175,33 +208,14 @@
     shapeshifting(args) {
       if (args.MODE === 'STATEMENT') {
         window.alert('Statement!');
+        return '';
       } else return Math.random();
+    }
+
+    diarrhea() {
+      return 'diarrhea';
     }
   }
 
-  await Scratch.extensions.register(new ddeTestExt());
-
-  setTimeout(() => {
-    ScratchBlockly.Blocks['ddeTestExt_shapeshifting'].onchange = function (event) {
-      if (
-        !this.workspace ||
-        event.type !== 'change' ||
-        event?.blockId !== this?.childBlocks_?.at(0)?.id
-      ) return;
-
-      if (event.name === "MODE" && event.element === 'field') {
-        this.unplug(true);
-
-        if (event.newValue === "STATEMENT") {
-          this.setOutput(false);
-          this.setPreviousStatement(true);
-          this.setNextStatement(true);
-        } else if (event.newValue === "OUTPUT") {
-          this.setPreviousStatement(false);
-          this.setNextStatement(false);
-          this.setOutput(true, ["Number"]);
-        }
-      }
-    };
-  }, 500);
+  Scratch.extensions.register(new ddeTestExt());
 })(Scratch);

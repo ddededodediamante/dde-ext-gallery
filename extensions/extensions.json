@@ -42,6 +42,16 @@
     "tags": ["date", "day", "time", "format", "pretty"]
   },
   {
+    "id": "speechSynthesis",
+    "name": "Speech Synthesis",
+    "description": "Play and customize TTS audio",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "tags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
+  },
+  {
     "id": "poopExtension",
     "name": "Poop Extension",
     "description": "The best poop ever",
