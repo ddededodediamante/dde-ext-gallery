@@ -78,10 +78,31 @@
             }
           }
         };
+
+        class CustomField extends SB.Field {
+          constructor(value, validator) {
+            super(value, validator);
+          }
+        
+          static fromJson(options) {
+            return new CustomField(options.value);
+          }
+        
+          showEditor_() {
+            const newValue = prompt("Enter a new value:", this.getValue());
+            if (newValue !== null) {
+              this.setValue(newValue);
+            }
+          }
+        }
+        
+        SB.fieldRegistry.register('field_custom', CustomField);  
+
         SB.Blocks['ddeTestExt_diarrhea'] = {
           init: function() {
             this.appendDummyInput('')
-              .appendField('diarrhea');
+              .appendField('diarrhea')
+              .appendField(new CustomField("Default"), "CUSTOM");
             this.setColour('#6d5953');
             this.setTooltip('tooltip');
           }

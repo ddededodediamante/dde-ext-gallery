@@ -1,6 +1,4 @@
 (function (Scratch) {
-  const isPM = Scratch.extensions?.isPenguinMod ?? false;
-
   if (!Scratch.extensions.unsandboxed) {
     window.alert('The extension "Date Format" must be ran unsandboxed!');
     throw new Error('The extension "Date Format" must be ran unsandboxed!');
@@ -13,11 +11,13 @@
   if (Scratch.gui)
     Scratch.gui.getBlockly().then((SB) => {
       const makeShape = (width, height) => {
+        width -= 40;
         height -= 20;
         height /= 2;
-        width -= 20;
-        return `M 20 0 q -10 0 -10 ${height} q -10 0 -10 10 q 0 10 10 10 q 0 ${height} 10 ${height} H ${width} q 10 0 10 -${height} q 10 0 10 -10 q 0 -10 -10 -10 q 0 -${height} -10 -${height} H 20 Z`;
-      };
+        width = Math.max(width, 0);
+        height =  Math.max(height, 0);
+        return `m 20 0 q -10 0 -10 10 q -10 0 -10 ${height} q 0 ${height} 10 ${height} q 0 10 10 10 h ${width} q 10 0 10 -10 q 10 0 10 ${-height} q 0 ${-height} -10 ${-height} q 0 -10 -10 -10 z`;
+      }
 
       const ogRender = SB.BlockSvg.prototype.render;
       SB.BlockSvg.prototype.render = function (...args) {
@@ -51,9 +51,7 @@
   class DateFormatExtension {
     constructor() {
       this.timers = {};
-      // 💀
-      this.date = (date) => (isPM ? dayjs(date) : date);
-      this.isValidDate = (date) => this.date(date)?.$isDayjsObject === true;
+      this.isValidDate = (date) => date?.$isDayjsObject === true;
     }
 
     getInfo() {
@@ -79,6 +77,7 @@
               string: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: "2025-03-12",
+                exemptFromNormalization: true
               },
             },
           },
@@ -89,6 +88,7 @@
             arguments: {
               date: {
                 type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
               },
               format: {
                 type: Scratch.ArgumentType.STRING,
@@ -105,12 +105,18 @@
             blockType: Scratch.BlockType.BOOLEAN,
             text: "is date [date1] [operation] date [date2]?",
             arguments: {
-              date1: { type: Scratch.ArgumentType.STRING },
+              date1: {
+                type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
+              },
               operation: {
                 type: Scratch.ArgumentType.STRING,
                 menu: "compareOperations",
               },
-              date2: { type: Scratch.ArgumentType.STRING },
+              date2: {
+                type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
+              },
             },
           },
           {
@@ -118,7 +124,10 @@
             blockType: Scratch.BlockType.BOOLEAN,
             text: "is date [date] valid?",
             arguments: {
-              date: { type: Scratch.ArgumentType.STRING },
+              date: {
+                type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
+              },
             },
           },
           {
@@ -134,7 +143,10 @@
                 type: Scratch.ArgumentType.STRING,
                 menu: "dateParts",
               },
-              date: { type: Scratch.ArgumentType.STRING },
+              date: {
+                type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
+              },
             },
           },
           {
@@ -144,7 +156,10 @@
             arguments: {
               amount: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
               unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
-              date: { type: Scratch.ArgumentType.STRING },
+              date: {
+                type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
+              },
             },
           },
           {
@@ -152,8 +167,14 @@
             blockType: Scratch.BlockType.REPORTER,
             text: "difference between [date1] and [date2] in [unit]",
             arguments: {
-              date1: { type: Scratch.ArgumentType.STRING },
-              date2: { type: Scratch.ArgumentType.STRING },
+              date1: {
+                type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
+              },
+              date2: {
+                type: Scratch.ArgumentType.STRING,
+                exemptFromNormalization: true
+              },
               unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
             },
           },
@@ -207,18 +228,14 @@
     formatDate({ date, format }) {
       if (!this.isValidDate(date)) return "Invalid Date";
       if (!format || format === "") return "Invalid Format";
-      return this.date(date).format(format);
+      return date.format(format);
     }
 
     compareDate({ date1, date2, operation }) {
-      if (!this.isValidDate(date1) || !this.isValidDate(date2))
-        return "Invalid Date";
-      if (operation === "after")
-        return this.date(date1).isAfter(this.date(date2));
-      else if (operation === "before")
-        return this.date(date1).isBefore(this.date(date2));
-      else if (operation === "same")
-        return this.date(date1).isSame(this.date(date2));
+      if (!this.isValidDate(date1) || !this.isValidDate(date2)) return "Invalid Date";
+      if (operation === "after") return date1.isAfter(date2);
+      else if (operation === "before") return date1.isBefore(date2);
+      else if (operation === "same") return date1.isSame(date2);
       else return false;
     }
 
@@ -228,18 +245,17 @@
 
     getDatePart({ date, part }) {
       if (!this.isValidDate(date)) return "Invalid Date";
-      return this.date(date)[part]();
+      return date[part]();
     }
 
     addTime({ date, amount, unit }) {
       if (!this.isValidDate(date)) return "Invalid Date";
-      return this.date(date).add(amount, unit);
+      return date.add(amount, unit);
     }
 
     diffDate({ date1, date2, unit }) {
-      if (!this.isValidDate(date1) || !this.isValidDate(date2))
-        return "Invalid Date";
-      return Math.abs(this.date(date1).diff(this.date(date2), unit));
+      if (!this.isValidDate(date1) || !this.isValidDate(date2)) return "Invalid Date";
+      return Math.abs(date1.diff(date2, unit));
     }
   }
 

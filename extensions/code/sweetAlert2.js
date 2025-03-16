@@ -165,7 +165,7 @@
             },
             blockIconURI: cogURI,
           },
-          {
+          { // Removed for security reasons ↓
             opcode: 'setCustomHTML',
             blockType: Scratch.BlockType.COMMAND,
             text: 'set custom HTML to [VALUE]',
@@ -233,7 +233,7 @@
           CONFIG: {
             acceptReporters: true,
             items: Object.keys(this.globalConfig)
-              .filter((i) => i !== 'icon' && i !== 'html')
+              .filter((i) => i !== 'icon')
               .map((v) => {
                 return {
                   value: v,
