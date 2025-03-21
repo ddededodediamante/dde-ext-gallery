@@ -26,6 +26,14 @@ a {
   text-decoration: none;
 }
 
+#footer {
+  color: rgb(181, 181, 181);
+}
+
+#footer a {
+  color: rgb(94, 114, 202);
+}
+
 button {
   font-size: 22px;
   color: white;
