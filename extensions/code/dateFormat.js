@@ -67,18 +67,18 @@
           {
             opcode: "currentDate",
             blockType: Scratch.BlockType.REPORTER,
-            text: "current date",
+            text: "current date"
           },
           {
             opcode: "createDate",
             blockType: Scratch.BlockType.REPORTER,
-            text: "create date from [string]",
+            text: "new date from [string]",
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: "2025-03-12",
                 exemptFromNormalization: true
-              },
+              }
             },
           },
           {
@@ -177,7 +177,7 @@
               },
               unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
             },
-          },
+          }
         ],
         menus: {
           compareOperations: {
