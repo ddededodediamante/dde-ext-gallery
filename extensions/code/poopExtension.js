@@ -64,14 +64,9 @@ class ddedePoopExtension {
   }
 
   comicSans() {
-    var textElements = document.querySelectorAll(
-      'p, h1, h2, h3, h4, h5, h6, span, div, li, td, th, a'
-    );
-
-    textElements.forEach(function (element) {
-      element.style.fontFamily = 'Comic Sans MS, sans-serif, Arial';
-      element.style.fontWeight = '900';
-    });
+    const comicSansStyle = document.createElement('style')
+    comicSansStyle.innerHTML = '* {font-family: "Comic Sans MS" !important;}';
+    document.head.appendChild(comicSansStyle);
   }
 }
 
