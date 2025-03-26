@@ -16,11 +16,12 @@
       <label>Foreground Color: <input type="color" id="foregroundPicker"></label>
       <label>Border Color: <input type="color" id="borderPicker"></label>
       <label>Font Color: <input type="color" id="fontPicker"></label>
+      <label>Border Radius: <input type="number" id="borderRadiusPicker" min="0" max="20"></label>
       
       <div class="inline" style="gap: 10px">
         <button onclick="saveSettings()">Save</button>
-        <button onclick="setDarkMode()">Dark Mode</button>
-        <button onclick="setLightMode()">Light Mode</button>
+        <button onclick="setMode('dark')">Dark Mode</button>
+        <button onclick="setMode('light')">Light Mode</button>
       </div>
     </div>
   </div>

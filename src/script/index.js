@@ -38,9 +38,7 @@ async function copyExt(id) {
 }
 
 async function copyUrlExt(id) {
-  await navigator.clipboard.writeText(
-    `${window.location.origin}/extensions/code/${id}.js`
-  );
+  await navigator.clipboard.writeText(`${window.location.origin}/extensions/code/${id}.js`);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -72,6 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     extList.forEach((ext) => {
+      if (ext?.hidden == true) return;
+
       const newElement = document.createElement("div");
       newElement.id = ext.id;
       newElement.className = "extension";
@@ -102,9 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       newElement.innerHTML = `
       <div class="thumbnail-wrapper">
-        <img src="/extensions/thumbnail/${ext.id}.${
-        ext.imgFormat ?? "svg"
-      }" alt="${ext.name}" id="thumbnail" />
+        <img src="/extensions/thumbnail/${ext.id}.${ext.imgFormat ?? "svg"}" alt="${ext.name}" id="thumbnail" />
         <div id="buttons">
           <button onclick="downloadExt('${ext.id}')">Download</button>
           <button onclick="copyExt('${ext.id}')">Copy</button>
@@ -119,10 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   window.filterExtensions = function () {
-    const query = document
-      .getElementById("search-bar")
-      .value.toLowerCase()
-      .trim();
+    const query = document.getElementById("search-bar").value.toLowerCase().trim();
 
     renderExtensions(
       extensions.filter(
@@ -141,67 +136,62 @@ const backgroundPicker = document.getElementById("backgroundPicker");
 const foregroundPicker = document.getElementById("foregroundPicker");
 const fontPicker = document.getElementById("fontPicker");
 const borderPicker = document.getElementById("borderPicker");
+const borderRadiusPicker = document.getElementById("borderRadiusPicker");
 const settings = document.getElementById("settings");
 const documentStyle = document.documentElement.style;
 
 function openSettings() {
-  settings.style.display = 'block';
+  settings.style.display = "block";
 }
 
 function closeSettings() {
-  settings.style.display = 'none';
+  settings.style.display = "none";
 }
 
 function saveSettings() {
-  const background = backgroundPicker.value;
-  const foreground = foregroundPicker.value;
-  const font = fontPicker.value;
-  const border = borderPicker.value;
-
-  localStorage.setItem("background", background);
-  localStorage.setItem("foreground", foreground);
-  localStorage.setItem("font", font);
-  localStorage.setItem("border", border);
-
-  documentStyle.setProperty("--background", background);
-  documentStyle.setProperty("--foreground", foreground);
-  documentStyle.setProperty("--border", border);
-  documentStyle.setProperty("--font", font);
+  ["background", "foreground", "font", "border", "borderRadius"].forEach((k) =>
+    localStorage.setItem(k, (window[k + "Picker"].value || "").toString())
+  );
+  loadSettings();
 }
 
-function loadSettings() {
-  const background = localStorage.getItem("background") || "#23272e";
-  const foreground = localStorage.getItem("foreground") || "#1c1f25";
-  const border = localStorage.getItem("border") || "#3a3e47";
-  const font = localStorage.getItem("font") || "#ffffff";
+function loadSettings(settings) {
+  settings = settings ?? {
+    background: localStorage.getItem("background") || "#23272e",
+    foreground: localStorage.getItem("foreground") || "#1c1f25",
+    border: localStorage.getItem("border") || "#3a3e47",
+    font: localStorage.getItem("font") || "#ffffff",
+    borderRadius: localStorage.getItem("borderRadius") || "10",
+  };
 
-  documentStyle.setProperty("--background", background);
-  documentStyle.setProperty("--foreground", foreground);
-  documentStyle.setProperty("--border", border);
-  documentStyle.setProperty("--font", font);
+  for (let i in settings) {
+    let value = settings[i];
+    documentStyle.setProperty(
+      `--${i}`,
+      i === "borderRadius" ? value + 'px' : value
+    );
+    window[i + "Picker"].value = value;
+  }
+}
 
-  backgroundPicker.value = background;
-  foregroundPicker.value = foreground;
-  fontPicker.value = font;
-  borderPicker.value = border;
+const modes = {
+  dark: {
+    background: "#23272e",
+    foreground: "#1c1f25",
+    border: "#3a3e47",
+    font: "#ffffff",
+  },
+  light: {
+    background: "#ffffff",
+    foreground: "#ececec",
+    border: "#cfcfcf",
+    font: "#000000",
+  },
+};
+
+function setMode(mode) {
+  Object.entries(modes[mode]).forEach(([k, v]) => localStorage.setItem(k, v));
+  loadSettings();
 }
 
 loadSettings();
-
-function setDarkMode() {
-  localStorage.setItem("background", "#23272e");
-  localStorage.setItem("foreground", "#1c1f25");
-  localStorage.setItem("border", "#3a3e47");
-  localStorage.setItem("font", "#ffffff");
-  
-  loadSettings();
-}
-
-function setLightMode() {
-  localStorage.setItem("background", "#ffffff");
-  localStorage.setItem("foreground", "#ececec");
-  localStorage.setItem("border", "#cfcfcf");
-  localStorage.setItem("font", "#000000");
-  
-  loadSettings();
-}

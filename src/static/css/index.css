@@ -10,6 +10,7 @@ html {
   --foreground: #1c1f25;
   --border: #3a3e47;
   --font: #ffffff;
+  --borderRadius: 10px;
 }
 
 body {
@@ -43,7 +44,7 @@ button {
   color: var(--font);
   background-color: var(--foreground);
   border: 2px solid var(--border);
-  border-radius: 5px;
+  border-radius: calc(var(--borderRadius) * 0.75);
   transition: background-color 0.2s ease, scale 0.2s ease;
   cursor: pointer;
   display: flex;
@@ -70,12 +71,11 @@ input {
   color: var(--font);
   background-color: var(--foreground);
   border: 2px solid var(--border);
-  border-radius: 5px;
   transition: background-color 0.2s ease;
   padding: 4px;
   padding-left: 8px;
   padding-right: 8px;
-  border-radius: 10px;
+  border-radius: calc(var(--borderRadius) * 0.75);
 }
 
 input:disabled {
@@ -124,7 +124,7 @@ div.extension {
   max-width: 300px;
   padding: 10px;
   gap: 20px;
-  border-radius: 10px;
+  border-radius: var(--borderRadius);
   background-color: var(--foreground);
   border: 2px solid var(--border);
 }
@@ -141,7 +141,7 @@ div.extension p.description {
 
 img#thumbnail {
   width: 300px;
-  border-radius: 10px;
+  border-radius: var(--borderRadius);
 }
 
 div#name {
@@ -180,12 +180,12 @@ div#name button img {
 
 ::-webkit-scrollbar-thumb {
   background: #555;
-  border-radius: 6px;
+  border-radius: calc(var(--borderRadius) * 0.75);
 }
 
 ::-webkit-scrollbar-track {
   background: #1d2127;
-  border-radius: 6px;
+  border-radius: calc(var(--borderRadius) * 0.75);
 }
 
 .thumbnail-wrapper {
@@ -204,7 +204,7 @@ div#name button img {
   transition: opacity 0.2s ease-in-out;
   margin: 0;
   padding: 0;
-  border-radius: 10px;
+  border-radius: var(--borderRadius);
 }
 
 .thumbnail-wrapper:hover div#buttons {
@@ -248,7 +248,7 @@ div#settingsContent {
   right: 10%;
   padding: 10px;
   gap: 10px;
-  border-radius: 10px;
+  border-radius: var(--borderRadius);
   border: 2px solid var(--border);
   background-color: var(--foreground);
 }
