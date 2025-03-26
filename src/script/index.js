@@ -38,7 +38,9 @@ async function copyExt(id) {
 }
 
 async function copyUrlExt(id) {
-  await navigator.clipboard.writeText(`${window.location.origin}/extensions/code/${id}.js`);
+  await navigator.clipboard.writeText(
+    `${window.location.origin}/extensions/code/${id}.js`
+  );
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -100,7 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       newElement.innerHTML = `
       <div class="thumbnail-wrapper">
-        <img src="/extensions/thumbnail/${ext.id}.${ext.imgFormat ?? "svg"}" alt="${ext.name}" id="thumbnail" />
+        <img src="/extensions/thumbnail/${ext.id}.${
+        ext.imgFormat ?? "svg"
+      }" alt="${ext.name}" id="thumbnail" />
         <div id="buttons">
           <button onclick="downloadExt('${ext.id}')">Download</button>
           <button onclick="copyExt('${ext.id}')">Copy</button>
@@ -130,3 +134,74 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   };
 });
+
+/* Button Functions */
+
+const backgroundPicker = document.getElementById("backgroundPicker");
+const foregroundPicker = document.getElementById("foregroundPicker");
+const fontPicker = document.getElementById("fontPicker");
+const borderPicker = document.getElementById("borderPicker");
+const settings = document.getElementById("settings");
+const documentStyle = document.documentElement.style;
+
+function openSettings() {
+  settings.style.display = 'block';
+}
+
+function closeSettings() {
+  settings.style.display = 'none';
+}
+
+function saveSettings() {
+  const background = backgroundPicker.value;
+  const foreground = foregroundPicker.value;
+  const font = fontPicker.value;
+  const border = borderPicker.value;
+
+  localStorage.setItem("background", background);
+  localStorage.setItem("foreground", foreground);
+  localStorage.setItem("font", font);
+  localStorage.setItem("border", border);
+
+  documentStyle.setProperty("--background", background);
+  documentStyle.setProperty("--foreground", foreground);
+  documentStyle.setProperty("--border", border);
+  documentStyle.setProperty("--font", font);
+}
+
+function loadSettings() {
+  const background = localStorage.getItem("background") || "#23272e";
+  const foreground = localStorage.getItem("foreground") || "#1c1f25";
+  const border = localStorage.getItem("border") || "#3a3e47";
+  const font = localStorage.getItem("font") || "#ffffff";
+
+  documentStyle.setProperty("--background", background);
+  documentStyle.setProperty("--foreground", foreground);
+  documentStyle.setProperty("--border", border);
+  documentStyle.setProperty("--font", font);
+
+  backgroundPicker.value = background;
+  foregroundPicker.value = foreground;
+  fontPicker.value = font;
+  borderPicker.value = border;
+}
+
+loadSettings();
+
+function setDarkMode() {
+  localStorage.setItem("background", "#23272e");
+  localStorage.setItem("foreground", "#1c1f25");
+  localStorage.setItem("border", "#3a3e47");
+  localStorage.setItem("font", "#ffffff");
+  
+  loadSettings();
+}
+
+function setLightMode() {
+  localStorage.setItem("background", "#ffffff");
+  localStorage.setItem("foreground", "#ececec");
+  localStorage.setItem("border", "#cfcfcf");
+  localStorage.setItem("font", "#000000");
+  
+  loadSettings();
+}

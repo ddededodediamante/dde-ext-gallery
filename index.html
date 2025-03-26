@@ -6,6 +6,25 @@
 </head>
 
 <body>
+  <div id="settings" style="display: none;">
+    <div id="settingsContent">
+      <button onclick="closeSettings()" style="position: absolute; top: 10px; right: 10px;">X</button>
+      
+      <h2>Settings</h2>
+
+      <label>Background Color: <input type="color" id="backgroundPicker"></label>
+      <label>Foreground Color: <input type="color" id="foregroundPicker"></label>
+      <label>Border Color: <input type="color" id="borderPicker"></label>
+      <label>Font Color: <input type="color" id="fontPicker"></label>
+      
+      <div class="inline" style="gap: 10px">
+        <button onclick="saveSettings()">Save</button>
+        <button onclick="setDarkMode()">Dark Mode</button>
+        <button onclick="setLightMode()">Light Mode</button>
+      </div>
+    </div>
+  </div>
+
   <div id="tagthing">
     <a href="https://github.com/ddededodediamante">
       <img src="https://avatars.githubusercontent.com/u/111385835" />
@@ -15,6 +34,7 @@
 
   <div id="search-container">
     <input type="text" id="search-bar" placeholder="Search extensions..." oninput="filterExtensions()" />
+    <button onclick="openSettings()">Settings</button>
   </div>
 
   <div id="gallery"></div>

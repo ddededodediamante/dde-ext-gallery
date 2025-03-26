@@ -51,6 +51,16 @@
     "tags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
   },
   {
+    "id": "toggleVisibility",
+    "name": "Toggle Visibility",
+    "description": "Collapse and Expand blocks",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": false
+    },
+    "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
+  },
+  {
     "id": "poopExtension",
     "name": "Poop Extension",
     "description": "The best poop ever",

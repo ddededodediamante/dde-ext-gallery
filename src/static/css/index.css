@@ -5,10 +5,17 @@
   box-sizing: content-box;
 }
 
+html {
+  --background: #23272e;
+  --foreground: #1c1f25;
+  --border: #3a3e47;
+  --font: #ffffff;
+}
+
 body {
-  background-color: #23272e;
+  background-color: var(--background);
+  color: var(--font);
   font-size: 22px;
-  color: #fff;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -22,23 +29,20 @@ body * {
 }
 
 a {
-  color: #ffffff;
+  color: var(--font);
   text-decoration: none;
 }
 
 #footer {
-  color: rgb(181, 181, 181);
-}
-
-#footer a {
-  color: rgb(94, 114, 202);
+  color: var(--font);
+  opacity: 0.7;
 }
 
 button {
   font-size: 22px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid white;
+  color: var(--font);
+  background-color: var(--foreground);
+  border: 2px solid var(--border);
   border-radius: 5px;
   transition: background-color 0.2s ease, scale 0.2s ease;
   cursor: pointer;
@@ -54,19 +58,18 @@ button:disabled {
 
 button:hover:not(:disabled) {
   scale: 1.03;
-  background-color: rgba(0, 0, 0, 0.6);
 }
 
 button:active:not(:disabled) {
-  scale: 0.95;
-  background-color: rgba(0, 0, 0, 0.6);
+  scale: 0.97;
+  background-color: var(--border);
 }
 
 input {
   font-size: 22px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid white;
+  color: var(--font);
+  background-color: var(--foreground);
+  border: 2px solid var(--border);
   border-radius: 5px;
   transition: background-color 0.2s ease;
   padding: 4px;
@@ -76,7 +79,11 @@ input {
 }
 
 input:disabled {
-  cursor: default;
+  pointer-events: none;
+}
+
+input[type="color"] {
+  cursor: pointer;
 }
 
 #tagthing {
@@ -118,7 +125,8 @@ div.extension {
   padding: 10px;
   gap: 20px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--foreground);
+  border: 2px solid var(--border);
 }
 
 div.extension p {
@@ -160,8 +168,8 @@ div#name button {
 div#name button img {
   width: 25px;
   height: 25px;
-  fill: white;
-  color: white;
+  fill: var(--font);
+  color: var(--font);
   background: none;
 }
 
@@ -180,12 +188,12 @@ div#name button img {
   border-radius: 6px;
 }
 
-div.thumbnail-wrapper {
+.thumbnail-wrapper {
   position: relative;
   display: flex;
 }
 
-div#buttons {
+.thumbnail-wrapper div#buttons {
   position: absolute;
   top: 0;
   left: 0;
@@ -201,4 +209,55 @@ div#buttons {
 
 .thumbnail-wrapper:hover div#buttons {
   opacity: 1;
+}
+
+.thumbnail-wrapper div#buttons button {
+  border-color: var(--font);
+  background-color: var(--background);
+}
+
+div#settings {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0000006e;
+  z-index: 100;
+}
+
+#search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+div#settingsContent {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 10px;
+  border: 2px solid var(--border);
+  background-color: var(--foreground);
+}
+
+div.inline {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
 }
