@@ -50,7 +50,7 @@
     },
     "tags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
   },
-  {
+  /*{
     "id": "toggleVisibility",
     "name": "Toggle Visibility",
     "description": "Collapse and Expand blocks",
@@ -59,7 +59,7 @@
       "pm": false
     },
     "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
-  },
+  },*/
   {
     "id": "poopExtension",
     "name": "Poop Extension",
