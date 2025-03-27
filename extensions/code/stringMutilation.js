@@ -26,46 +26,34 @@
       triple: "triple",
       quadruple: "cuadruple",
       quintuple: "quintuple",
-      "[string] exactly equals [string2]?":
-        "es [string] exactamente igual a [string2]?",
+      "[string] exactly equals [string2]?": "es [string] exactamente igual a [string2]?",
       "[string] ends with [string2]?": "[string] termina con [string2]?",
       "[string] starts with [string2]?": "[string] comienza con [string2]?",
-      "[string] starts [menu] ends with [string2]?":
-        "[string] comienza [menu] termina con [string2]?",
+      "[string] starts [menu] ends with [string2]?": "[string] comienza [menu] termina con [string2]?",
       "[string] contains [menu]?": "[string] contiene [menu]?",
       "repeat [string] [number] times": "repetir [string] [number] veces",
-      "length of [string] excluding [exclude]":
-        "longitud de [string] excluyendo [exclude]",
-      "unicode of letter #[number] of [string]":
-        "unicode de la letra #[number] de [string]",
+      "length of [string] excluding [exclude]": "longitud de [string] excluyendo [exclude]",
+      "unicode of letter #[number] of [string]": "unicode de la letra #[number] de [string]",
       "unicode of letter [letter]": "unicode de la letra [letter]",
       "letter from unicode [unicode]": "letra de unicode [unicode]",
       "index of [string] in [string2]": "indice de [string] en [string2]",
-      "last index of [string] in [string2]":
-        "ultimo indice de [string] en [string2]",
-      "index # [number] of [string] in [string2]":
-        "indice # [number] de [string] en [string2]",
-      "in [string] replace first [string2] with [string3]":
-        "en [string] reemplazar primer [string2] con [string3]",
-      "in [string] replace all [string2] with [string3]":
-        "en [string] reemplazar todos [string2] con [string3]",
+      "last index of [string] in [string2]": "ultimo indice de [string] en [string2]",
+      "index # [number] of [string] in [string2]": "indice # [number] de [string] en [string2]",
+      "in [string] replace first [string2] with [string3]": "en [string] reemplazar primer [string2] con [string3]",
+      "in [string] replace all [string2] with [string3]": "en [string] reemplazar todos [string2] con [string3]",
       "in [string] replace #[number] [string2] with [string3]":
         "en [string] reemplazar #[number] [string2] con [string3]",
-      "slice [string] from [number] to [number2]":
-        "acortar [string] desde [number] hasta [number2]",
-      "get [string] split by [string2]":
-        "obtener [string] separado con [string2]",
+      "slice [string] from [number] to [number2]": "acortar [string] desde [number] hasta [number2]",
+      "get [string] split by [string2]": "obtener [string] separado con [string2]",
       "amount of [string] in [string2]": "cantidad de [string] en [string2]",
       "add [string] to [string2] until length [number] from [menu]":
         "añadir [string] a [string2] hasta longitud [number] desde el [menu]",
-      "in [string] remove from array [array]":
-        "en [string] quitar desde array [array]",
+      "in [string] remove from array [array]": "en [string] quitar desde array [array]",
       "text [string] to unicode array": "texto [string] a array unicode",
       "text from unicode array [array]": "texto desde array unicode [array]",
       "[menu] newline": "[menu] linea nueva",
       "join [string] \\n [string2]": "unir [string] \\n [string2]",
-      "join [string] \\n [string2] \\n [string3]":
-        "unir [string] \\n [string2] \\n [string3]",
+      "join [string] \\n [string2] \\n [string3]": "unir [string] \\n [string2] \\n [string3]",
       "URL [menu] [string]": "[menu] [string] para URLs",
       "value [return]": "valor [return]",
     },
@@ -298,9 +286,7 @@
           {
             opcode: "ReplaceFirst",
             blockType: Scratch.BlockType.REPORTER,
-            text: this.translate(
-              "in [string] replace first [string2] with [string3]"
-            ),
+            text: this.translate("in [string] replace first [string2] with [string3]"),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -319,9 +305,7 @@
           {
             opcode: "ReplaceAll",
             blockType: Scratch.BlockType.REPORTER,
-            text: this.translate(
-              "in [string] replace all [string2] with [string3]"
-            ),
+            text: this.translate("in [string] replace all [string2] with [string3]"),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -340,9 +324,7 @@
           {
             opcode: "ReplaceNumber",
             blockType: Scratch.BlockType.REPORTER,
-            text: this.translate(
-              "in [string] replace #[number] [string2] with [string3]"
-            ),
+            text: this.translate("in [string] replace #[number] [string2] with [string3]"),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -418,9 +400,7 @@
           {
             opcode: "AddToStringUntil",
             blockType: Scratch.BlockType.REPORTER,
-            text: this.translate(
-              "add [string] to [string2] until length [number] from [menu]"
-            ),
+            text: this.translate("add [string] to [string2] until length [number] from [menu]"),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -696,11 +676,7 @@
         let returns = [];
 
         for (let i = 0; i < str.length; i++) {
-          returns.push(
-            Math.random() > 0.5
-              ? str.charAt(i).toLowerCase()
-              : str.charAt(i).toUpperCase()
-          );
+          returns.push(Math.random() > 0.5 ? str.charAt(i).toLowerCase() : str.charAt(i).toUpperCase());
         }
 
         return returns.join("");
@@ -757,16 +733,13 @@
     }
     ReplaceNumber(args) {
       var count = 0;
-      return args.string.replace(
-        new RegExp(args.string2, "g"),
-        function (match) {
-          count++;
-          if (count === args.number) {
-            return args.string3;
-          }
-          return match;
+      return args.string.replace(new RegExp(args.string2, "g"), function (match) {
+        count++;
+        if (count === args.number) {
+          return args.string3;
         }
-      );
+        return match;
+      });
     }
     SliceText(args) {
       return args.string.slice(args.number - 1, args.number2);

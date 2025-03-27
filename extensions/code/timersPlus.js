@@ -203,7 +203,7 @@
 
     stateOfTimer(args) {
       const timerName = args.name;
-      return this.timers[timerName]?.status ?? 'none';
+      return this.timers[timerName]?.status ?? "none";
     }
 
     getAllTimers() {
@@ -215,8 +215,7 @@
       const timer = this.timers[timerName];
       if (!timer || timer.startTime === null) return 0;
 
-      const endTime =
-        timer.pausedTime !== null ? timer.pausedTime : new Date().getTime();
+      const endTime = timer.pausedTime !== null ? timer.pausedTime : new Date().getTime();
       const elapsedMilliseconds = endTime - timer.startTime;
 
       switch (args.unit.toLowerCase()) {
@@ -241,8 +240,7 @@
         return "00:00:00";
       }
 
-      const endTime =
-        timer.pausedTime !== null ? timer.pausedTime : new Date().getTime();
+      const endTime = timer.pausedTime !== null ? timer.pausedTime : new Date().getTime();
       const elapsedMilliseconds = endTime - timer.startTime;
 
       const hours = Math.floor(elapsedMilliseconds / 3600000);
@@ -250,14 +248,12 @@
       const seconds = Math.floor((elapsedMilliseconds % 60000) / 1000);
 
       if (args.format === "hh:mm:ss") {
-        return `${hours.toString().padStart(2, "0")}:${minutes
-          .toString()
-          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      } else if (args.format === "mm:ss") {
-        const totalMinutes = hours * 60 + minutes;
-        return `${totalMinutes.toString().padStart(2, "0")}:${seconds
+        return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
           .toString()
           .padStart(2, "0")}`;
+      } else if (args.format === "mm:ss") {
+        const totalMinutes = hours * 60 + minutes;
+        return `${totalMinutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
       }
 
       return "00:00";

@@ -51,6 +51,16 @@
     "tags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
   },
   {
+    "id": "nasaMediaExtension",
+    "name": "Nasa Media Extension",
+    "description": "Search for images on Nasa's public database",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "tags": ["image", "images", "fetch", "url", "urls"]
+  },
+  {
     "id": "toggleVisibility",
     "name": "Toggle Visibility",
     "description": "Collapse and Expand blocks",

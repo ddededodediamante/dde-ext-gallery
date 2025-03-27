@@ -1,4 +1,6 @@
 (function (Scratch) {
+  // Made by ddededodediamante
+
   if (!Scratch.extensions.unsandboxed) {
     window.alert('The extension "Potato Extension" must be ran unsandboxed!');
     throw new Error('The extension "Potato Extension" must be ran unsandboxed!');
@@ -35,7 +37,7 @@
       return {
         id: "ddePotatoExtension",
         name: "Potato Extension",
-        color1: '#947948',
+        color1: "#947948",
         blocks: [
           {
             opcode: "generatePotato",

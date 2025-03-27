@@ -1,12 +1,18 @@
 (async function (Scratch) {
   "use strict";
 
-  if (!Scratch.extensions.unsandboxed)
-    throw new Error("This extension must run unsandboxed!");
+  if (!Scratch.extensions.unsandboxed) throw new Error("This extension must run unsandboxed!");
 
   if (Scratch?.extensions?.isPenguinMod === true) {
-    if (!window.confirm('⚠ WARNING: This extension is not fully compatible with your platform. Collapsed blocks may appear visually buggy, but they will still function correctly. Do you want to continue?')) return;
+    if (
+      !window.confirm(
+        "⚠ WARNING: This extension is not fully compatible with your platform. Collapsed blocks may appear visually buggy, but they will still function correctly. Do you want to continue?"
+      )
+    )
+      return;
   }
+
+  // Made by ddededodediamante
 
   if (Scratch.gui)
     Scratch.gui.getBlockly().then((SB) => {
@@ -54,7 +60,7 @@
       return {
         id: "ddeToggleVisibility",
         name: "Toggle Visibility",
-        blocks: []
+        blocks: [],
       };
     }
   }

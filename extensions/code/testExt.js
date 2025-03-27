@@ -1,8 +1,7 @@
 (async function (Scratch) {
   "use strict";
 
-  if (!Scratch.extensions.unsandboxed)
-    throw new Error("This extension must run unsandboxed!");
+  if (!Scratch.extensions.unsandboxed) throw new Error("This extension must run unsandboxed!");
 
   function sumToTranslate(path, dx = 0, dy = 0) {
     if (!path) return;
@@ -33,8 +32,7 @@
 
       const octagon = (width, height) => {
         width -= 18;
-        return `M 9 0 l -10 10 v ${height - 20} l 10 10 h ${width} l 10 -10 v -${height - 20
-          } l -10 -10 h -${width} z`;
+        return `M 9 0 l -10 10 v ${height - 20} l 10 10 h ${width} l 10 -10 v -${height - 20} l -10 -10 h -${width} z`;
       };
 
       const roundPuzzle = (width, height) => {
@@ -46,7 +44,7 @@
 
       const frameAdapter = (width, height) => {
         return `M 1 0 c 0 2.2 1.8 4 4 4 h 20 c 2 0 3 1 4 2 l 4 4 c 1 1 2 2 4 2 h 12 c 2 0 3 -1 4 -2 l 4 -4 c 1 -1 2 -2 4 -2 h 91.4 c 2.2 0 4 -1.8 4 -4 v -40 c 0 -2.2 -1.8 -4 -4 -4 h -3.8 c -2.2 0 -4 1.8 -4 4 v 28.2 c 0 2.2 -1.8 4 -4 4 h -123.6 c -2.2 0 -4 -1.8 -4 -4 v -28.2 c 0 -2.2 -1.8 -4 -4 -4 h -1.6 c 0 0 0 0 0 0 h -2.3 c -2.2 0 -4 1.8 -4 4 Z`;
-      }
+      };
 
       const ogRender = SB.BlockSvg.prototype.render;
       SB.BlockSvg.prototype.render = function (...args) {
@@ -66,20 +64,14 @@
             else return roundPuzzle(width, height);
           }
 
-          if (
-            this?.outputConnection?.check_?.length > 0 ||
-            thisSafeType === "frame_adapter"
-          ) {
+          if (this?.outputConnection?.check_?.length > 0 || thisSafeType === "frame_adapter") {
             this.svgPath_.setAttribute("d", getShape(this));
           }
 
-          if (thisSafeType === 'frame_adapter') {
+          if (thisSafeType === "frame_adapter") {
             this.inputList.forEach((input) => {
               const block = input?.connection?.targetBlock();
-              if (
-                block && block?.svgPath_ &&
-                path.getAttribute("data_translate_from_frame_adapter") !== true
-              ) {
+              if (block && block?.svgPath_ && path.getAttribute("data_translate_from_frame_adapter") !== true) {
                 block.svgPath_.setAttribute("data_translate_from_frame_adapter", true);
                 sumToTranslate(block.svgPath_, -3, -44);
               }
@@ -98,14 +90,10 @@
       };
 
       setTimeout(() => {
-        SB.Blocks['ddeTestExt_shapeshifting'].onchange = function (event) {
-          if (
-            !this.workspace ||
-            event.type !== 'change' ||
-            event?.blockId !== this?.childBlocks_?.at(0)?.id
-          ) return;
+        SB.Blocks["ddeTestExt_shapeshifting"].onchange = function (event) {
+          if (!this.workspace || event.type !== "change" || event?.blockId !== this?.childBlocks_?.at(0)?.id) return;
 
-          if (event.name === "MODE" && event.element === 'field') {
+          if (event.name === "MODE" && event.element === "field") {
             this.unplug(true);
             if (event.newValue === "STATEMENT") {
               this.setOutput(false);
@@ -120,6 +108,8 @@
         };
       }, 500);
     });
+
+  // Made by ddededodediamante
 
   class ddeTestExt {
     getInfo() {
@@ -181,16 +171,16 @@
             arguments: {
               MODE: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'MODE'
+                menu: "MODE",
               },
             },
           },
           {
             opcode: "frame_adapter",
-            color1: '#b1b1b1',
+            color1: "#b1b1b1",
             blockType: Scratch.BlockType.CONDITIONAL,
             text: "‎",
-            branchCount: 1
+            branchCount: 1,
           },
         ],
         menus: {
@@ -198,16 +188,16 @@
             acceptReporters: true,
             items: [
               {
-                text: 'statement',
-                value: 'STATEMENT'
+                text: "statement",
+                value: "STATEMENT",
               },
               {
-                text: 'output',
-                value: 'OUTPUT'
-              }
-            ]
+                text: "output",
+                value: "OUTPUT",
+              },
+            ],
           },
-        }
+        },
       };
     }
 
@@ -240,14 +230,14 @@
     }
 
     shapeshifting(args) {
-      if (args.MODE === 'STATEMENT') {
-        window.alert('Statement!');
-        return '';
+      if (args.MODE === "STATEMENT") {
+        window.alert("Statement!");
+        return "";
       } else return Math.random();
     }
 
     diarrhea() {
-      return 'diarrhea';
+      return "diarrhea";
     }
 
     frame_adapter(_args, util) {
