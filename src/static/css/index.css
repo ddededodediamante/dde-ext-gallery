@@ -151,11 +151,14 @@ div#name {
   align-items: center;
   justify-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 7px;
+  max-width: 100%;
 }
 
-div#name p {
+div#name, div#name * {
+  overflow: hidden;
   text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 
 div#name button {
