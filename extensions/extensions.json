@@ -72,6 +72,17 @@
     "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
   },
   {
+    "id": "posenet2scratch",
+    "name": "Posenet2Scratch",
+    "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "imgFormat": "png",
+    "tags": ["movement", "action", "ported"]
+  },
+  {
     "id": "potatoExtension",
     "name": "Potato Extension",
     "description": "yummy potatoes 🥔",
