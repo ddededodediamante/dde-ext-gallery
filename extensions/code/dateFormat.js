@@ -4,81 +4,256 @@
     throw new Error('The extension "Date Format" must be ran unsandboxed!');
   }
 
-  // Import package dayjs
-  !function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(t="undefined"!=typeof globalThis?globalThis:t||self).dayjs=e()}(this,(function(){"use strict";var t=1e3,e=6e4,n=36e5,r="millisecond",i="second",s="minute",u="hour",a="day",o="week",c="month",f="quarter",h="year",d="date",l="Invalid Date",$=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,y=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,M={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),ordinal:function(t){var e=["th","st","nd","rd"],n=t%100;return"["+t+(e[(n-20)%10]||e[n]||e[0])+"]"}},m=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},v={s:m,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+m(r,2,"0")+":"+m(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return-t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,c),s=n-i<0,u=e.clone().add(r+(s?-1:1),c);return+(-(r+(n-i)/(s?i-u:u-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(t){return{M:c,y:h,w:o,d:a,D:d,h:u,m:s,s:i,ms:r,Q:f}[t]||String(t||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},g="en",D={};D[g]=M;var p="$isDayjsObject",S=function(t){return t instanceof _||!(!t||!t[p])},w=function t(e,n,r){var i;if(!e)return g;if("string"==typeof e){var s=e.toLowerCase();D[s]&&(i=s),n&&(D[s]=n,i=s);var u=e.split("-");if(!i&&u.length>1)return t(u[0])}else{var a=e.name;D[a]=e,i=a}return!r&&i&&(g=i),i||!r&&g},O=function(t,e){if(S(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new _(n)},b=v;b.l=w,b.i=S,b.w=function(t,e){return O(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var _=function(){function M(t){this.$L=w(t.locale,null,!0),this.parse(t),this.$x=this.$x||t.x||{},this[p]=!0}var m=M.prototype;return m.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(b.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match($);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.init()},m.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},m.$utils=function(){return b},m.isValid=function(){return!(this.$d.toString()===l)},m.isSame=function(t,e){var n=O(t);return this.startOf(e)<=n&&n<=this.endOf(e)},m.isAfter=function(t,e){return O(t)<this.startOf(e)},m.isBefore=function(t,e){return this.endOf(e)<O(t)},m.$g=function(t,e,n){return b.u(t)?this[e]:this.set(n,t)},m.unix=function(){return Math.floor(this.valueOf()/1e3)},m.valueOf=function(){return this.$d.getTime()},m.startOf=function(t,e){var n=this,r=!!b.u(e)||e,f=b.p(t),l=function(t,e){var i=b.w(n.$u?Date.UTC(n.$y,e,t):new Date(n.$y,e,t),n);return r?i:i.endOf(a)},$=function(t,e){return b.w(n.toDate()[t].apply(n.toDate("s"),(r?[0,0,0,0]:[23,59,59,999]).slice(e)),n)},y=this.$W,M=this.$M,m=this.$D,v="set"+(this.$u?"UTC":"");switch(f){case h:return r?l(1,0):l(31,11);case c:return r?l(1,M):l(0,M+1);case o:var g=this.$locale().weekStart||0,D=(y<g?y+7:y)-g;return l(r?m-D:m+(6-D),M);case a:case d:return $(v+"Hours",0);case u:return $(v+"Minutes",1);case s:return $(v+"Seconds",2);case i:return $(v+"Milliseconds",3);default:return this.clone()}},m.endOf=function(t){return this.startOf(t,!1)},m.$set=function(t,e){var n,o=b.p(t),f="set"+(this.$u?"UTC":""),l=(n={},n[a]=f+"Date",n[d]=f+"Date",n[c]=f+"Month",n[h]=f+"FullYear",n[u]=f+"Hours",n[s]=f+"Minutes",n[i]=f+"Seconds",n[r]=f+"Milliseconds",n)[o],$=o===a?this.$D+(e-this.$W):e;if(o===c||o===h){var y=this.clone().set(d,1);y.$d[l]($),y.init(),this.$d=y.set(d,Math.min(this.$D,y.daysInMonth())).$d}else l&&this.$d[l]($);return this.init(),this},m.set=function(t,e){return this.clone().$set(t,e)},m.get=function(t){return this[b.p(t)]()},m.add=function(r,f){var d,l=this;r=Number(r);var $=b.p(f),y=function(t){var e=O(l);return b.w(e.date(e.date()+Math.round(t*r)),l)};if($===c)return this.set(c,this.$M+r);if($===h)return this.set(h,this.$y+r);if($===a)return y(1);if($===o)return y(7);var M=(d={},d[s]=e,d[u]=n,d[i]=t,d)[$]||1,m=this.$d.getTime()+r*M;return b.w(m,this)},m.subtract=function(t,e){return this.add(-1*t,e)},m.format=function(t){var e=this,n=this.$locale();if(!this.isValid())return n.invalidDate||l;var r=t||"YYYY-MM-DDTHH:mm:ssZ",i=b.z(this),s=this.$H,u=this.$m,a=this.$M,o=n.weekdays,c=n.months,f=n.meridiem,h=function(t,n,i,s){return t&&(t[n]||t(e,r))||i[n].slice(0,s)},d=function(t){return b.s(s%12||12,t,"0")},$=f||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r};return r.replace(y,(function(t,r){return r||function(t){switch(t){case"YY":return String(e.$y).slice(-2);case"YYYY":return b.s(e.$y,4,"0");case"M":return a+1;case"MM":return b.s(a+1,2,"0");case"MMM":return h(n.monthsShort,a,c,3);case"MMMM":return h(c,a);case"D":return e.$D;case"DD":return b.s(e.$D,2,"0");case"d":return String(e.$W);case"dd":return h(n.weekdaysMin,e.$W,o,2);case"ddd":return h(n.weekdaysShort,e.$W,o,3);case"dddd":return o[e.$W];case"H":return String(s);case"HH":return b.s(s,2,"0");case"h":return d(1);case"hh":return d(2);case"a":return $(s,u,!0);case"A":return $(s,u,!1);case"m":return String(u);case"mm":return b.s(u,2,"0");case"s":return String(e.$s);case"ss":return b.s(e.$s,2,"0");case"SSS":return b.s(e.$ms,3,"0");case"Z":return i}return null}(t)||i.replace(":","")}))},m.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},m.diff=function(r,d,l){var $,y=this,M=b.p(d),m=O(r),v=(m.utcOffset()-this.utcOffset())*e,g=this-m,D=function(){return b.m(y,m)};switch(M){case h:$=D()/12;break;case c:$=D();break;case f:$=D()/3;break;case o:$=(g-v)/6048e5;break;case a:$=(g-v)/864e5;break;case u:$=g/n;break;case s:$=g/e;break;case i:$=g/t;break;default:$=g}return l?$:b.a($)},m.daysInMonth=function(){return this.endOf(c).$D},m.$locale=function(){return D[this.$L]},m.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=w(t,e,!0);return r&&(n.$L=r),n},m.clone=function(){return b.w(this.$d,this)},m.toDate=function(){return new Date(this.valueOf())},m.toJSON=function(){return this.isValid()?this.toISOString():null},m.toISOString=function(){return this.$d.toISOString()},m.toString=function(){return this.$d.toUTCString()},M}(),k=_.prototype;return O.prototype=k,[["$ms",r],["$s",i],["$m",s],["$H",u],["$W",a],["$M",c],["$y",h],["$D",d]].forEach((function(t){k[t[1]]=function(e){return this.$g(e,t[0],t[1])}})),O.extend=function(t,e){return t.$i||(t(e,_,O),t.$i=!0),O},O.locale=w,O.isDayjs=S,O.unix=function(t){return O(1e3*t)},O.en=D[g],O.Ls=D,O.p={},O}));
+  const extensionIcon =
+    "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNjQiIGhlaWdodD0iMTY0IiB2aWV3Qm94PSIwLDAsMTY0LDE2NCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE1OCwtOTgpIj48ZyBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiPjxwYXRoIGQ9Ik0xNTgsMTgwYzAsLTQ1LjI4NzM1IDM2LjcxMjY1LC04MiA4MiwtODJjNDUuMjg3MzUsMCA4MiwzNi43MTI2NSA4Miw4MmMwLDQ1LjI4NzM1IC0zNi43MTI2NSw4MiAtODIsODJjLTQ1LjI4NzM1LDAgLTgyLC0zNi43MTI2NSAtODIsLTgyeiIgZmlsbD0iIzU5YzA3NCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIi8+PHBhdGggZD0iTTE4OC45MDY0MSwyMDYuMzc4NDV2LTUxLjgxNTYxbDUwLjkwMTI3LDMzLjk1Mzk3djUxLjU2Mjg1bC01MC43NzMwNSwtMzMuMzY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjkuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTI5MC45NjUzOCwyMDYuNzE1NDZsLTUwLjc3MzA1LDMzLjM2NDJ2LTUxLjU2Mjg1bDUwLjkwMTI4LC0zMy45NTM5N3Y1MS44MTU2MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjkuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTIzOS45OTk5OSwxODguNjk5ODJsLTUxLjA5MzU5LC0zNC4zODk3NWw1MS4wOTM1OSwtMzQuMzg5NzRsNTEuMDkzNiwzNC4zODk3NHoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI5LjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48L2c+PC9zdmc+PCEtLXJvdGF0aW9uQ2VudGVyOjgyLjAwMDAwMDAwMDAwMDAzOjgxLjk5OTk5OTk5OTk5OTk5LS0+";
 
-  // Thanks sharkpool for original patch!
-  if (Scratch.gui)
-    Scratch.gui.getBlockly().then((SB) => {
-      const makeShape = (width, height) => {
-        width -= 40;
-        height -= 20;
-        height /= 2;
-        width = Math.max(width, 0);
-        height =  Math.max(height, 0);
-        return `m 20 0 q -10 0 -10 10 q -10 0 -10 ${height} q 0 ${height} 10 ${height} q 0 10 10 10 h ${width} q 10 0 10 -10 q 10 0 10 ${-height} q 0 ${-height} -10 ${-height} q 0 -10 -10 -10 z`;
+  class DateType {
+    constructor(dateInput) {
+      if (dateInput instanceof Date) {
+        this._date = dateInput;
+      } else if (dateInput instanceof DateType) {
+        this._date = new Date(dateInput._date);
+      } else if (["number", "string"].includes(typeof dateInput)) {
+        this._date = new Date(dateInput);
+      } else {
+        this._date = new Date(NaN);
       }
+      this.customId = "ddeDateFormat.date";
+    }
 
-      const ogRender = SB.BlockSvg.prototype.render;
-      SB.BlockSvg.prototype.render = function (...args) {
-        const data = ogRender.call(this, ...args);
+    isValid() {
+      return this._date instanceof Date && !isNaN(this._date.getTime());
+    }
+    toDate() {
+      return new Date(this._date.getTime());
+    }
+    getTime() {
+      return this._date.getTime();
+    }
 
-        if (this.svgPath_ && this.type.startsWith("ddeDateFormat_")) {
-          if (
-            this?.outputConnection?.check_?.length > 0 &&
-            ['currentDate','createDate','addTime'].some(v => this.type.endsWith(v))
-          ) {
-            this.svgPath_.setAttribute("d", makeShape(this.width, this.height));
-          }
+    toString() {
+      return this.isValid() ? this._date.toISOString() : "Invalid Date";
+    }
 
-          this.inputList.forEach((input, index) => {
-            const block = input?.connection?.targetBlock();
-            if (block && block.svgPath_) {
-              if (block.type !== 'text') return;
-              if (block?.parentBlock_.type === 'ddeDateFormat_createDate') return;
-              if (block?.parentBlock_.type === 'ddeDateFormat_formatDate' && index !== 0) return;
-              if (block?.parentBlock_.type === 'ddeDateFormat_addTime' && index !== 1) return;
-              block.svgPath_.setAttribute("d", makeShape(block.width, block.height));
-            }
-          });
-        }
+    toReporterContent() {
+      const span = document.createElement("span");
+      span.innerText = this.isValid() ? this.toString() : "Invalid Date";
+      span.style.fontStyle = "italic";
+      span.title = this.toString();
+      return span;
+    }
 
-        return data;
-      };
-    });
-  
-  // Made by ddededodediamante
+    toMonitorContent() {
+      const wrap = document.createElement("div");
+      wrap.style.display = "flex";
+      wrap.style.flexDirection = "column";
+
+      const top = document.createElement("div");
+      top.innerText = this.isValid() ? this._prettyShort() : "Invalid Date";
+
+      const sub = document.createElement("small");
+      sub.innerText = this.isValid() ? this.toString() : "";
+      sub.style.opacity = "0.7";
+
+      wrap.append(top, sub);
+      return wrap;
+    }
+
+    toListItem() {
+      const span = document.createElement("span");
+      span.innerText = this.isValid() ? this.toString() : "Invalid Date";
+      span.style.fontStyle = "italic";
+      span.title = this.toString();
+      return span;
+    }
+
+    toListEditor() {
+      return this.toString();
+    }
+
+    fromListEditor(edit) {
+      const newDate = new Date(edit);
+      if (!isNaN(newDate.getTime())) {
+        this._date = newDate;
+        return this;
+      }
+      return new DateType(new Date(NaN));
+    }
+
+    _prettyShort() {
+      if (!this.isValid()) return "Invalid Date";
+      const y = this._date.getUTCFullYear();
+      const m = String(this._date.getUTCMonth() + 1).padStart(2, "0");
+      const d = String(this._date.getUTCDate()).padStart(2, "0");
+      const hh = String(this._date.getUTCHours()).padStart(2, "0");
+      const mm = String(this._date.getUTCMinutes()).padStart(2, "0");
+      return `${y}-${m}-${d} ${hh}:${mm}`;
+    }
+  }
+
+  function formatDate(d, format) {
+    if (!(d instanceof Date) || isNaN(d.getTime()))
+      throw new Error("Invalid Date");
+
+    const pad = (n) => String(n).padStart(2, "0");
+
+    const weekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const tokens = {
+      YYYY: () => d.getFullYear(),
+      YY: () => String(d.getFullYear()).slice(-2),
+      MMMM: () => months[d.getMonth()],
+      MMM: () => months[d.getMonth()].slice(0, 3),
+      MM: () => pad(d.getMonth() + 1),
+      M: () => d.getMonth() + 1,
+      DD: () => pad(d.getDate()),
+      D: () => d.getDate(),
+      dddd: () => weekdays[d.getDay()],
+      ddd: () => weekdays[d.getDay()].slice(0, 3),
+      HH: () => pad(d.getHours()),
+      H: () => d.getHours(),
+      hh: () => pad(((d.getHours() + 11) % 12) + 1),
+      h: () => ((d.getHours() + 11) % 12) + 1,
+      mm: () => pad(d.getMinutes()),
+      m: () => d.getMinutes(),
+      ss: () => pad(d.getSeconds()),
+      s: () => d.getSeconds(),
+      A: () => (d.getHours() < 12 ? "AM" : "PM"),
+      a: () => (d.getHours() < 12 ? "am" : "pm"),
+      Z: () => {
+        const offset = -d.getTimezoneOffset();
+        const sign = offset >= 0 ? "+" : "-";
+        const absOff = Math.abs(offset);
+        const hh = pad(Math.floor(absOff / 60));
+        const mm = pad(absOff % 60);
+        return `${sign}${hh}:${mm}`;
+      },
+      SSS: () => String(d.getMilliseconds()).padStart(3, "0"),
+    };
+
+    const tokenList = Object.keys(tokens).sort((a, b) => b.length - a.length);
+    const regex = new RegExp(`(${tokenList.join("|")})`, "g");
+
+    return String(format || "").replace(regex, (match) => tokens[match]());
+  }
+
+  function addToDate(d, amount, unit) {
+    if (!(d instanceof Date) || isNaN(d.getTime()))
+      throw new Error("Invalid Date");
+    
+    const result = new Date(d.getTime());
+    amount = Number(amount) || 0;
+    switch ((unit || "").toLowerCase()) {
+      case "milliseconds":
+        result.setMilliseconds(result.getMilliseconds() + amount);
+        break;
+      case "seconds":
+        result.setSeconds(result.getSeconds() + amount);
+        break;
+      case "minutes":
+        result.setMinutes(result.getMinutes() + amount);
+        break;
+      case "hours":
+        result.setHours(result.getHours() + amount);
+        break;
+      case "days":
+        result.setDate(result.getDate() + amount);
+        break;
+      case "months":
+        result.setMonth(result.getMonth() + amount);
+        break;
+      case "years":
+        result.setFullYear(result.getFullYear() + amount);
+        break;
+    }
+    return new DateType(result);
+  }
+
+  function diffDates(d1, d2, unit) {
+    if (
+      !(d1 instanceof Date) ||
+      isNaN(d1.getTime()) ||
+      !(d2 instanceof Date) ||
+      isNaN(d2.getTime())
+    )
+      throw new Error("Invalid Date");
+    const ms = d1.getTime() - d2.getTime();
+    const absMs = Math.abs(ms);
+    switch ((unit || "").toLowerCase()) {
+      case "milliseconds":
+        return absMs;
+      case "seconds":
+        return Math.floor(absMs / 1000);
+      case "minutes":
+        return Math.floor(absMs / 60000);
+      case "hours":
+        return Math.floor(absMs / 3600000);
+      case "days":
+        return Math.floor(absMs / 86400000);
+      case "months":
+        return Math.abs(
+          (d1.getFullYear() - d2.getFullYear()) * 12 +
+            (d1.getMonth() - d2.getMonth())
+        );
+      case "years":
+        return Math.abs(d1.getFullYear() - d2.getFullYear());
+      default:
+        return absMs;
+    }
+  }
+
   class DateFormatExtension {
     constructor() {
-      this.timers = {};
-      this.isValidDate = (date) => date?.$isDayjsObject === true;
+      this.isValidDate = (d) => d instanceof DateType && d.isValid();
     }
 
     getInfo() {
       return {
         id: "ddeDateFormat",
         name: "Date Format",
+        menuIconURI: extensionIcon,
         color1: "#59c074",
         blocks: [
-          {
-            blockType: Scratch.BlockType.LABEL,
-            text: "Creation & Format",
-          },
+          { blockType: Scratch.BlockType.LABEL, text: "Creation & Format" },
           {
             opcode: "currentDate",
             blockType: Scratch.BlockType.REPORTER,
-            text: "current date"
+            blockShape: Scratch.BlockShape.TICKET,
+            text: "current date",
           },
           {
             opcode: "createDate",
             blockType: Scratch.BlockType.REPORTER,
+            blockShape: Scratch.BlockShape.TICKET,
             text: "new date from [string]",
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: "2025-03-12",
-                exemptFromNormalization: true
-              }
+                exemptFromNormalization: true,
+              },
             },
           },
           {
@@ -88,7 +263,7 @@
             arguments: {
               date: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
               format: {
                 type: Scratch.ArgumentType.STRING,
@@ -96,10 +271,7 @@
               },
             },
           },
-          {
-            blockType: Scratch.BlockType.LABEL,
-            text: "Comparations",
-          },
+          { blockType: Scratch.BlockType.LABEL, text: "Comparisons" },
           {
             opcode: "compareDate",
             blockType: Scratch.BlockType.BOOLEAN,
@@ -107,7 +279,7 @@
             arguments: {
               date1: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
               operation: {
                 type: Scratch.ArgumentType.STRING,
@@ -115,7 +287,7 @@
               },
               date2: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
             },
           },
@@ -126,26 +298,20 @@
             arguments: {
               date: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
             },
           },
-          {
-            blockType: Scratch.BlockType.LABEL,
-            text: "Operators",
-          },
+          { blockType: Scratch.BlockType.LABEL, text: "Operators" },
           {
             opcode: "getDatePart",
             blockType: Scratch.BlockType.REPORTER,
             text: "get [part] of [date]",
             arguments: {
-              part: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "dateParts",
-              },
+              part: { type: Scratch.ArgumentType.STRING, menu: "dateParts" },
               date: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
             },
           },
@@ -158,7 +324,7 @@
               unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
               date: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
             },
           },
@@ -169,15 +335,15 @@
             arguments: {
               date1: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
               date2: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true
+                exemptFromNormalization: true,
               },
               unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
             },
-          }
+          },
         ],
         menus: {
           compareOperations: {
@@ -189,20 +355,20 @@
             ],
           },
           dateParts: {
-            acceptReporters: false,
+            acceptReporters: true,
             items: [
               { text: "milliseconds", value: "millisecond" },
               { text: "seconds", value: "second" },
               { text: "minutes", value: "minute" },
               { text: "hours", value: "hour" },
-              { text: "day (week)", value: "day" },
-              { text: "day (month)", value: "daysInMonth" },
+              { text: "day (week)", value: "weekday" },
+              { text: "day (month)", value: "date" },
               { text: "month", value: "month" },
               { text: "year", value: "year" },
             ],
           },
           timeUnits: {
-            acceptReporters: false,
+            acceptReporters: true,
             items: [
               "milliseconds",
               "seconds",
@@ -217,45 +383,85 @@
       };
     }
 
+    toDateType(input) {
+      return input instanceof DateType ? input : new DateType(input);
+    }
+
+    toNativeDate(input) {
+      const d = this.toDateType(input);
+      return d.isValid() ? d.toDate() : new Date(NaN);
+    }
+
     currentDate() {
-      return dayjs();
+      return new DateType(new Date());
     }
 
     createDate({ string }) {
-      return dayjs(string);
+      return new DateType(string);
     }
 
     formatDate({ date, format }) {
-      if (!this.isValidDate(date)) return "Invalid Date";
-      if (!format || format === "") return "Invalid Format";
-      return date.format(format);
+      return formatDate(
+        this.toNativeDate(date),
+        format || "dddd, MMMM D, YYYY"
+      );
     }
 
     compareDate({ date1, date2, operation }) {
-      if (!this.isValidDate(date1) || !this.isValidDate(date2)) return "Invalid Date";
-      if (operation === "after") return date1.isAfter(date2);
-      else if (operation === "before") return date1.isBefore(date2);
-      else if (operation === "same") return date1.isSame(date2);
-      else return false;
+      const d1 = this.toNativeDate(date1);
+      const d2 = this.toNativeDate(date2);
+
+      switch (operation) {
+        case "after":
+          return d1.getTime() > d2.getTime();
+        case "before":
+          return d1.getTime() < d2.getTime();
+        case "same":
+          return d1.getTime() === d2.getTime();
+        default:
+          return false;
+      }
     }
 
     isValid({ date }) {
-      return this.isValidDate(date);
+      return this.toDateType(date).isValid();
     }
 
-    getDatePart({ date, part }) {
-      if (!this.isValidDate(date)) return "Invalid Date";
-      return date[part]();
+    getDatePart({ part, date }) {
+      const d = this.toNativeDate(date);
+      if (isNaN(d.getTime())) throw new Error("Invalid Date");
+      switch (part) {
+        case "millisecond":
+          return d.getUTCMilliseconds();
+        case "second":
+          return d.getUTCSeconds();
+        case "minute":
+          return d.getUTCMinutes();
+        case "hour":
+          return d.getUTCHours();
+        case "weekday":
+          return d.getUTCDay();
+        case "date":
+          return d.getUTCDate();
+        case "month":
+          return d.getUTCMonth() + 1;
+        case "year":
+          return d.getUTCFullYear();
+        default:
+          return 0;
+      }
     }
 
-    addTime({ date, amount, unit }) {
-      if (!this.isValidDate(date)) return "Invalid Date";
-      return date.add(amount, unit);
+    addTime({ amount, unit, date }) {
+      return addToDate(this.toNativeDate(date), amount, unit);
     }
 
     diffDate({ date1, date2, unit }) {
-      if (!this.isValidDate(date1) || !this.isValidDate(date2)) return "Invalid Date";
-      return Math.abs(date1.diff(date2, unit));
+      return diffDates(
+        this.toNativeDate(date1),
+        this.toNativeDate(date2),
+        unit
+      );
     }
   }
 
