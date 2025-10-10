@@ -7,11 +7,24 @@
   const extensionIcon =
     "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNjQiIGhlaWdodD0iMTY0IiB2aWV3Qm94PSIwLDAsMTY0LDE2NCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE1OCwtOTgpIj48ZyBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiPjxwYXRoIGQ9Ik0xNTgsMTgwYzAsLTQ1LjI4NzM1IDM2LjcxMjY1LC04MiA4MiwtODJjNDUuMjg3MzUsMCA4MiwzNi43MTI2NSA4Miw4MmMwLDQ1LjI4NzM1IC0zNi43MTI2NSw4MiAtODIsODJjLTQ1LjI4NzM1LDAgLTgyLC0zNi43MTI2NSAtODIsLTgyeiIgZmlsbD0iIzU5YzA3NCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIi8+PHBhdGggZD0iTTE4OC45MDY0MSwyMDYuMzc4NDV2LTUxLjgxNTYxbDUwLjkwMTI3LDMzLjk1Mzk3djUxLjU2Mjg1bC01MC43NzMwNSwtMzMuMzY0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjkuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTI5MC45NjUzOCwyMDYuNzE1NDZsLTUwLjc3MzA1LDMzLjM2NDJ2LTUxLjU2Mjg1bDUwLjkwMTI4LC0zMy45NTM5N3Y1MS44MTU2MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjkuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTIzOS45OTk5OSwxODguNjk5ODJsLTUxLjA5MzU5LC0zNC4zODk3NWw1MS4wOTM1OSwtMzQuMzg5NzRsNTEuMDkzNiwzNC4zODk3NHoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI5LjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48L2c+PC9zdmc+PCEtLXJvdGF0aW9uQ2VudGVyOjgyLjAwMDAwMDAwMDAwMDAzOjgxLjk5OTk5OTk5OTk5OTk5LS0+";
 
-  class DateType {
+  const ddeDateFormat = {
+    BlockOutput: {
+      blockType: Scratch.BlockType.REPORTER,
+      blockShape: Scratch.BlockShape.TICKET,
+      forceOutputType: "Date",
+      disableMonitor: true,
+    },
+    Argument: {
+      shape: Scratch.BlockShape.TICKET,
+      check: ["Date"],
+    },
+  };
+
+  class ddeDateType {
     constructor(dateInput) {
       if (dateInput instanceof Date) {
         this._date = dateInput;
-      } else if (dateInput instanceof DateType) {
+      } else if (dateInput instanceof ddeDateType) {
         this._date = new Date(dateInput._date);
       } else if (["number", "string"].includes(typeof dateInput)) {
         this._date = new Date(dateInput);
@@ -105,7 +118,7 @@
         this._date = newDate;
         return this;
       }
-      return new DateType(new Date(NaN));
+      return new ddeDateType(new Date(NaN));
     }
 
     _prettyShort() {
@@ -224,7 +237,7 @@
         result.setFullYear(result.getFullYear() + amount);
         break;
     }
-    return new DateType(result);
+    return new ddeDateType(result);
   }
 
   function diffDates(d1, d2, unit) {
@@ -263,57 +276,51 @@
   Scratch.vm.runtime.registerSerializer(
     "ddeDateFormat.date",
     (i) => {
-      if (i instanceof DateType) {
+      if (i instanceof ddeDateType) {
         return { dateString: i._date };
       }
     },
     (i) => {
       if (!i.dateString) return null;
-      return new DateType(i.dateString);
+      return new ddeDateType(i.dateString);
     }
   );
 
-  class DateFormatExtension {
+  class ddeDateExtension {
     constructor() {
-      this.isValidDate = (d) => d instanceof DateType && d.isValid();
+      this.isValidDate = (d) => d instanceof ddeDateType && d.isValid();
     }
 
     getInfo() {
       return {
-        id: "ddeDateFormat",
-        name: "Date Format (OLD)",
+        id: "ddeDateFormatV2",
+        name: "Date Format",
         menuIconURI: extensionIcon,
         color1: "#59c074",
         blocks: [
           { blockType: Scratch.BlockType.LABEL, text: "Creation & Format" },
           {
             opcode: "currentDate",
-            blockType: Scratch.BlockType.REPORTER,
-            blockShape: Scratch.BlockShape.TICKET,
             text: "current date",
+            ...ddeDateFormat.BlockOutput,
           },
           {
             opcode: "createDate",
-            blockType: Scratch.BlockType.REPORTER,
-            blockShape: Scratch.BlockShape.TICKET,
             text: "new date from [string]",
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: "2025-03-12",
-                exemptFromNormalization: true,
               },
             },
+            ...ddeDateFormat.BlockOutput,
           },
           {
             opcode: "formatDate",
             blockType: Scratch.BlockType.REPORTER,
-            text: "format date [date] as [format]",
+            text: "format [date] as [format]",
             arguments: {
-              date: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
+              date: ddeDateFormat.Argument,
               format: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: "dddd, MMMM D, YYYY",
@@ -323,12 +330,9 @@
           {
             opcode: "localeFormatDate",
             blockType: Scratch.BlockType.REPORTER,
-            text: "format date [date] to [type] locale",
+            text: "format [date] to [type] locale",
             arguments: {
-              date: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
+              date: ddeDateFormat.Argument,
               type: {
                 type: Scratch.ArgumentType.STRING,
                 menu: "localeLength",
@@ -337,76 +341,87 @@
           },
           { blockType: Scratch.BlockType.LABEL, text: "Comparisons" },
           {
+            opcode: "isValid",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "is [date] valid?",
+            arguments: {
+              date: ddeDateFormat.Argument,
+            },
+          },
+          {
             opcode: "compareDate",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "is date [date1] [operation] date [date2]?",
+            text: "is [date1] [operation] [date2]?",
             arguments: {
-              date1: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
+              date1: ddeDateFormat.Argument,
               operation: {
                 type: Scratch.ArgumentType.STRING,
                 menu: "compareOperations",
               },
-              date2: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
+              date2: ddeDateFormat.Argument,
             },
           },
           {
-            opcode: "isValid",
+            opcode: "checkDateProperty",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "is date [date] valid?",
+            text: "is [date] [property]?",
             arguments: {
-              date: {
+              date: ddeDateFormat.Argument,
+              property: {
                 type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
+                menu: "dateProperties",
               },
             },
           },
+
           { blockType: Scratch.BlockType.LABEL, text: "Operators" },
+          {
+            opcode: "diffDate",
+            blockType: Scratch.BlockType.REPORTER,
+            text: "difference between [date1] and [date2] in [unit]",
+            arguments: {
+              date1: ddeDateFormat.Argument,
+              date2: ddeDateFormat.Argument,
+              unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
+            },
+          },
           {
             opcode: "getDatePart",
             blockType: Scratch.BlockType.REPORTER,
             text: "get [part] of [date]",
             arguments: {
               part: { type: Scratch.ArgumentType.STRING, menu: "dateParts" },
-              date: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
+              date: ddeDateFormat.Argument,
             },
           },
           {
+            opcode: "setDatePart",
+            text: "set [part] of [date] to [value]",
+            arguments: {
+              part: { type: Scratch.ArgumentType.STRING, menu: "dateParts" },
+              date: ddeDateFormat.Argument,
+              value: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+            },
+            ...ddeDateFormat.BlockOutput,
+          },
+          {
             opcode: "addTime",
-            blockType: Scratch.BlockType.REPORTER,
             text: "add [amount] [unit] to [date]",
             arguments: {
               amount: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
               unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
-              date: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
+              date: ddeDateFormat.Argument,
             },
+            ...ddeDateFormat.BlockOutput,
           },
           {
-            opcode: "diffDate",
-            blockType: Scratch.BlockType.REPORTER,
-            text: "difference between [date1] and [date2] in [unit]",
+            opcode: "roundDate",
+            text: "round [date] to nearest [unit]",
             arguments: {
-              date1: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
-              date2: {
-                type: Scratch.ArgumentType.STRING,
-                exemptFromNormalization: true,
-              },
+              date: ddeDateFormat.Argument,
               unit: { type: Scratch.ArgumentType.STRING, menu: "timeUnits" },
             },
+            ...ddeDateFormat.BlockOutput,
           },
         ],
         menus: {
@@ -447,12 +462,25 @@
             acceptReporters: true,
             items: ["short", "long"],
           },
+          dateProperties: {
+            acceptReporters: true,
+            items: [
+              "weekend",
+              "weekday",
+              "today",
+              "yesterday",
+              "tomorrow",
+              "first of month",
+              "last of month",
+              "leap year",
+            ],
+          },
         },
       };
     }
 
     toDateType(input) {
-      return input instanceof DateType ? input : new DateType(input);
+      return input instanceof ddeDateType ? input : new ddeDateType(input);
     }
 
     toNativeDate(input) {
@@ -461,11 +489,11 @@
     }
 
     currentDate() {
-      return new DateType(new Date());
+      return new ddeDateType(new Date());
     }
 
     createDate({ string }) {
-      return new DateType(string);
+      return new ddeDateType(string);
     }
 
     formatDate({ date, format }) {
@@ -492,6 +520,7 @@
     compareDate({ date1, date2, operation }) {
       const d1 = this.toNativeDate(date1);
       const d2 = this.toNativeDate(date2);
+      if (isNaN(d1.getTime()) || isNaN(d2.getTime())) throw new Error("Invalid Date");
 
       switch (operation) {
         case "after":
@@ -546,7 +575,113 @@
         unit
       );
     }
+
+    setDatePart({ part, date, value }) {
+      const d = this.toNativeDate(date);
+      if (isNaN(d.getTime())) throw new Error("Invalid Date");
+
+      const v = Number(value);
+      const newDate = new Date(d.getTime());
+
+      switch (part) {
+        case "millisecond":
+          newDate.setMilliseconds(v);
+          break;
+        case "second":
+          newDate.setSeconds(v);
+          break;
+        case "minute":
+          newDate.setMinutes(v);
+          break;
+        case "hour":
+          newDate.setHours(v);
+          break;
+        case "weekday":
+          const diff = v - newDate.getDay();
+          newDate.setDate(newDate.getDate() + diff);
+          break;
+        case "date":
+          newDate.setDate(v);
+          break;
+        case "month":
+          newDate.setMonth(v - 1);
+          break;
+        case "year":
+          newDate.setFullYear(v);
+          break;
+      }
+
+      return new ddeDateType(newDate);
+    }
+
+    roundDate({ date, unit }) {
+      const d = this.toNativeDate(date);
+      if (isNaN(d.getTime())) throw new Error("Invalid Date");
+
+      const ms = d.getTime();
+      let rounded;
+
+      const unitMs = {
+        milliseconds: 1,
+        seconds: 1000,
+        minutes: 60000,
+        hours: 3600000,
+        days: 86400000,
+      }[unit.toLowerCase()];
+
+      if (unitMs) {
+        rounded = Math.round(ms / unitMs) * unitMs;
+      } else if (unit.toLowerCase() === "months") {
+        const temp = new Date(d.getFullYear(), d.getMonth() + 0.5, 1);
+        rounded = temp.getTime();
+      } else if (unit.toLowerCase() === "years") {
+        const temp = new Date(d.getFullYear() + 0.5, 0, 1);
+        rounded = temp.getTime();
+      } else {
+        rounded = ms;
+      }
+
+      return new ddeDateType(new Date(rounded));
+    }
+
+    checkDateProperty({ date, property }) {
+      const d = this.toNativeDate(date);
+      if (isNaN(d)) throw new Error("Invalid Date");
+
+      const now = new Date();
+      const sameDay = (a, b) =>
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate();
+
+      switch (property) {
+        case "weekend":
+          return [0, 6].includes(d.getDay());
+        case "weekday":
+          return ![0, 6].includes(d.getDay());
+        case "today":
+          return sameDay(d, now);
+        case "yesterday":
+          const y = new Date(now);
+          y.setDate(now.getDate() - 1);
+          return sameDay(d, y);
+        case "tomorrow":
+          const t = new Date(now);
+          t.setDate(now.getDate() + 1);
+          return sameDay(d, t);
+        case "first of month":
+          return d.getDate() === 1;
+        case "last of month":
+          const last = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+          return d.getDate() === last.getDate();
+        case "leap year":
+          const year = d.getFullYear();
+          return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+        default:
+          return false;
+      }
+    }
   }
 
-  Scratch.extensions.register(new DateFormatExtension());
+  Scratch.extensions.register(new ddeDateExtension());
 })(Scratch);

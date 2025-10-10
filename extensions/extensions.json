@@ -31,7 +31,7 @@
     "tags": ["string", "text", "change", "control"]
   },
   {
-    "id": "dateFormat",
+    "id": "dateFormatV2",
     "name": "Date Format",
     "description": "Manage & format dates and time",
     "canBeUsedOn": {
