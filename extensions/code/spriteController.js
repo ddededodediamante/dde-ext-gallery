@@ -3,30 +3,32 @@
 
   if (!Scratch.extensions.unsandboxed) {
     window.alert('The extension "Sprite Controller" must be ran unsandboxed!');
-    throw new Error('The extension "Sprite Controller" must be ran unsandboxed!');
+    throw new Error(
+      'The extension "Sprite Controller" must be ran unsandboxed!'
+    );
   }
 
   const isPM = Scratch.extensions?.isPenguinMod ?? false;
   const runtime = Scratch.vm.runtime;
 
   const rightIcon =
-    'https://turbowarp.org/static/blocks-media/default/rotate-right.svg';
+    "https://turbowarp.org/static/blocks-media/default/rotate-right.svg";
   const leftIcon =
-    'https://turbowarp.org/static/blocks-media/default/rotate-left.svg';
+    "https://turbowarp.org/static/blocks-media/default/rotate-left.svg";
 
   if (isPM) {
     var clickFlag =
-      'https://studio.penguinmod.com/static/blocks-media/blue-flag.svg';
+      "https://studio.penguinmod.com/static/blocks-media/blue-flag.svg";
   } else {
     var clickFlag =
-      'https://turbowarp.org/static/blocks-media/default/green-flag.svg';
+      "https://turbowarp.org/static/blocks-media/default/green-flag.svg";
   }
 
   const motion = runtime.ext_scratch3_motion;
   const looks = runtime.ext_scratch3_looks;
 
   function getSpriteByName(name) {
-    if (name === '_stage_') {
+    if (name === "_stage_") {
       return runtime.getTargetForStage();
     } else {
       return runtime.getSpriteTargetByName(name);
@@ -36,34 +38,102 @@
   class extension {
     getInfo() {
       return {
-        id: 'ddeSpriteController',
-        name: 'Sprite Controller',
-        color1: '#737FFF',
+        id: "ddeSpriteController",
+        name: "Sprite Controller",
+        color1: "#737FFF",
         blocks: [
           {
-            opcode: 'logsprite',
+            opcode: "logsprite",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'log target and util',
+            text: "log target and util",
             hideFromPalette: true,
           },
           {
-            opcode: 'getrandomsprite',
+            opcode: "getrandomsprite",
             blockType: Scratch.BlockType.REPORTER,
-            text: 'random sprite',
+            text: "random sprite",
             disableMonitor: true,
           },
           {
-            opcode: 'getcurrentsprite',
+            opcode: "getcurrentsprite",
             blockType: Scratch.BlockType.REPORTER,
-            text: 'current sprite',
+            text: "current sprite",
             disableMonitor: true,
             filter: [Scratch.TargetType.SPRITE],
           },
-          '---',
+          "---",
           {
-            opcode: 'movestepsprite',
+            opcode: "isClone",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "is clone?",
+            disableMonitor: true,
+            filter: [Scratch.TargetType.SPRITE],
+          },
+          {
+            opcode: "spritedraggable",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "is [spritemenu] draggable?",
+            arguments: {
+              spritemenu: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "sprites",
+              },
+            },
+          },
+          {
+            opcode: "spritedragging",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "dragging [spritemenu]?",
+            arguments: {
+              spritemenu: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "sprites",
+              },
+            },
+          },
+          {
+            opcode: "spriteProperty",
+            blockType: Scratch.BlockType.REPORTER,
+            text: "[menu] of [spritemenu]",
+            arguments: {
+              menu: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "spriteProperties",
+              },
+              spritemenu: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "sprites",
+              },
+            },
+          },
+          "---",
+          {
+            opcode: "runAsSprite",
+            blockType: Scratch.BlockType.CONDITIONAL,
+            text: "as [sprite] run",
+            arguments: {
+              sprite: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "sprites",
+              },
+            },
+          },
+          {
+            opcode: "runAsClonesOfSprite",
+            blockType: Scratch.BlockType.CONDITIONAL,
+            text: "as clones of [sprite] run",
+            arguments: {
+              sprite: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "sprites",
+              },
+            },
+          },
+          "---",
+          {
+            opcode: "movestepsprite",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'move [spritemenu] [amount] steps',
+            text: "move [spritemenu] [amount] steps",
             arguments: {
               amount: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -71,14 +141,14 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'changexory',
+            opcode: "changexory",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'change [spritemenu] [menu] by [amount]',
+            text: "change [spritemenu] [menu] by [amount]",
             arguments: {
               amount: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -86,18 +156,18 @@
               },
               menu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'xy',
+                menu: "xy",
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'setxory',
+            opcode: "setxory",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'set [spritemenu] [menu] to [amount]',
+            text: "set [spritemenu] [menu] to [amount]",
             arguments: {
               amount: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -105,18 +175,18 @@
               },
               menu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'xy',
+                menu: "xy",
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'changexy',
+            opcode: "changexy",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'change [spritemenu] x [x] y [y]',
+            text: "change [spritemenu] x [x] y [y]",
             arguments: {
               x: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -128,14 +198,14 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'setxy',
+            opcode: "setxy",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'set [spritemenu] to x [x] y [y]',
+            text: "set [spritemenu] to x [x] y [y]",
             arguments: {
               x: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -147,14 +217,14 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'changesizesprite',
+            opcode: "changesizesprite",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'change [spritemenu] size by [size]%',
+            text: "change [spritemenu] size by [size]%",
             arguments: {
               size: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -162,14 +232,14 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'setsizesprite',
+            opcode: "setsizesprite",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'set [spritemenu] size to [size]%',
+            text: "set [spritemenu] size to [size]%",
             arguments: {
               size: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -177,14 +247,14 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'turnspriteright',
+            opcode: "turnspriteright",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'turn [spritemenu] [image] [amount] degrees',
+            text: "turn [spritemenu] [image] [amount] degrees",
             arguments: {
               amount: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -196,14 +266,14 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'turnspriteleft',
+            opcode: "turnspriteleft",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'turn [spritemenu] [image] [amount] degrees',
+            text: "turn [spritemenu] [image] [amount] degrees",
             arguments: {
               amount: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -215,46 +285,46 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'spritesay',
+            opcode: "spritesay",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'sprite [spritemenu] say [speak]',
+            text: "sprite [spritemenu] say [speak]",
             hideFromPalette: isPM,
             arguments: {
               speak: {
                 type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 'Hello!',
+                defaultValue: "Hello!",
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'spritethink',
+            opcode: "spritethink",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'sprite [spritemenu] think [think]',
+            text: "sprite [spritemenu] think [think]",
             hideFromPalette: isPM,
             arguments: {
               think: {
                 type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 'Hmm...',
+                defaultValue: "Hmm...",
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "sprites",
               },
             },
           },
           {
-            opcode: 'spritegreenflag',
+            opcode: "spritegreenflag",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'emit [image] to [spritemenu]',
+            text: "emit [image] to [spritemenu]",
             arguments: {
               image: {
                 type: Scratch.ArgumentType.IMAGE,
@@ -262,74 +332,29 @@
               },
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'spritesStage',
+                menu: "spritesStage",
               },
             },
           },
           {
-            opcode: 'spriteclickevent',
+            opcode: "spriteclickevent",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'emit click to [spritemenu]',
+            text: "emit click to [spritemenu]",
             arguments: {
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'spritesStage',
+                menu: "spritesStage",
               },
             },
           },
           {
-            opcode: 'stopsprite',
+            opcode: "stopsprite",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'stop [spritemenu]',
+            text: "stop [spritemenu]",
             arguments: {
               spritemenu: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'spritesStage',
-              },
-            },
-          },
-          '---',
-          {
-            opcode: 'spritedraggable',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is [spritemenu] draggable?',
-            arguments: {
-              spritemenu: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-            },
-          },
-          {
-            opcode: 'spritedragging',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'dragging [spritemenu]?',
-            arguments: {
-              spritemenu: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-            },
-          },
-          {
-            opcode: 'runAsSprite',
-            blockType: Scratch.BlockType.CONDITIONAL,
-            text: 'as [sprite] run',
-            arguments: {
-              sprite: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-            },
-          },
-          {
-            opcode: 'runAsClonesOfSprite',
-            blockType: Scratch.BlockType.CONDITIONAL,
-            text: 'as clones of [sprite] run',
-            arguments: {
-              sprite: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
+                menu: "spritesStage",
               },
             },
           },
@@ -337,46 +362,62 @@
         menus: {
           sprites: {
             acceptReporters: true,
-            items: 'allsprites',
+            items: "allsprites",
           },
           spritesStage: {
             acceptReporters: true,
-            items: 'allspritesStage',
+            items: "allspritesStage",
           },
           xy: {
             acceptReporters: true,
-            items: ['x', 'y'],
+            items: ["x", "y"],
+          },
+          spriteProperties: {
+            acceptReporters: true,
+            items: [
+              { text: "x position", value: "x" },
+              { text: "y position", value: "y" },
+              { text: "direction", value: "direction" },
+              { text: "rotation style", value: "rotationStyle" },
+              { text: "size", value: "size" },
+              { text: "costume number", value: "currentCostume" },
+              { text: "volume", value: "volume" },
+              { text: "is visible", value: "visible" },
+              { text: "tempo", value: "tempo" },
+              { text: "clones amount", value: "clonesAmount" },
+            ],
           },
         },
       };
     }
 
-    allsprites() {
+    allsprites(id) {
       const array = [];
       const targets = runtime.targets;
       if (targets.length < 2) {
-        return ['No sprites.'];
+        return ["No sprites."];
       }
 
       for (let e = 1; e < targets.length; e++) {
         const sprite = targets[e];
         if (sprite.isOriginal) {
-          array.push(sprite.getName());
+          const name = sprite.getName();
+          array.push({ text: sprite.id === id ? "myself" : name, value: name });
         }
       }
 
       return array;
     }
 
-    allspritesStage() {
-      const array = [{ text: 'Stage', value: '_stage_' }];
-      const sprites = this.allsprites();
+    allspritesStage(id) {
+      const array = [{ text: "Stage", value: "_stage_" }];
+      const sprites = this.allsprites(id);
 
-      if (sprites.length === 1 && sprites[0] === 'No sprites.') return array;
+      if (sprites.length === 1 && sprites[0] === "No sprites.") return array;
       else return array.concat(sprites);
     }
 
-    // Deprecated
+    /* secret mode */
     logsprite(args, util) {
       console.log(util, util.target);
     }
@@ -401,9 +442,9 @@
       const target = getSpriteByName(args.spritemenu);
       if (!target) return;
       const amount = Scratch.Cast.toNumber(args.amount);
-      if (args.menu === 'x') {
+      if (args.menu === "x") {
         target.setXY(target.x + amount, target.y);
-      } else if (args.menu === 'y') {
+      } else if (args.menu === "y") {
         target.setXY(target.x, target.y + amount);
       }
     }
@@ -412,9 +453,9 @@
       const target = getSpriteByName(args.spritemenu);
       if (!target) return;
       const amount = Scratch.Cast.toNumber(args.amount);
-      if (args.menu === 'x') {
+      if (args.menu === "x") {
         target.setXY(amount, target.y);
-      } else if (args.menu === 'y') {
+      } else if (args.menu === "y") {
         target.setXY(target.x, amount);
       }
     }
@@ -468,7 +509,7 @@
     }
 
     spritesay(args, util) {
-      if (isPM) throw new Error('This block does not work in PenguinMod.');
+      if (isPM) throw new Error("This block does not work in PenguinMod.");
 
       const target = getSpriteByName(args.spritemenu);
       if (!target) return;
@@ -477,27 +518,27 @@
     }
 
     spritethink(args, util) {
-      if (isPM) throw new Error('This block does not work in PenguinMod.');
+      if (isPM) throw new Error("This block does not work in PenguinMod.");
 
       const target = getSpriteByName(args.spritemenu);
       if (!target) return;
       const think = Scratch.Cast.toString(args.think);
-      runtime.emit('SAY', target, 'think', think);
+      runtime.emit("SAY", target, "think", think);
     }
 
     spritegreenflag(args, util) {
       const target = getSpriteByName(args.spritemenu);
       if (!target) return;
-      util.startHats('event_whenflagclicked', {}, target);
+      util.startHats("event_whenflagclicked", {}, target);
     }
 
     spriteclickevent(args, util) {
       const target = getSpriteByName(args.spritemenu);
       if (!target) return;
-      if (args.spritemenu === '_stage_') {
-        util.startHats('event_whenstageclicked');
+      if (args.spritemenu === "_stage_") {
+        util.startHats("event_whenstageclicked");
       } else {
-        util.startHats('event_whenthisspriteclicked', {}, target);
+        util.startHats("event_whenthisspriteclicked", {}, target);
       }
     }
 
@@ -521,6 +562,7 @@
 
     runThreadInSprite(thread, originalTarget, newTarget) {
       const firstBlock = thread.blockContainer.getBranch(thread.peekStack(), 1);
+      if (!firstBlock) return;
 
       const newThread = runtime._pushThread(firstBlock, originalTarget, {
         stackClick: false,
@@ -545,6 +587,25 @@
       clones.forEach((c) => {
         this.runThreadInSprite(util.thread, util.target, c);
       });
+    }
+
+    isClone(_, util) {
+      return !util?.target?.isOriginal;
+    }
+
+    spriteProperty({ spritemenu, menu }) {
+      const target = getSpriteByName(spritemenu);
+      if (!target) return;
+
+      if (menu === "clonesAmount")
+        return runtime.targets.filter(
+          (c) => !c.isOriginal && c?.sprite?.name === spritemenu
+        ).length;
+
+      let result = target[menu];
+      if (menu === "currentCostume") result++;
+
+      return result;
     }
   }
 
