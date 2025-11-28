@@ -109,38 +109,13 @@
     loading.style.display = "none";
   });
 
-  window._mouseX = 0;
-  window._mouseY = 0;
-
-  document.addEventListener("mousemove", (e) => {
-    window._mouseX = e.clientX;
-    window._mouseY = e.clientY;
-  });
-
   function moveRandomly() {
-    const mouse = { x: window._mouseX, y: window._mouseY };
-
-    let randomX, randomY;
-    let tries = 0;
-
-    do {
-      randomX = Math.floor(
-        Math.random() * (window.innerWidth - video.offsetWidth)
-      );
-      randomY = Math.floor(
-        Math.random() * (window.innerHeight - video.offsetHeight)
-      );
-      tries++;
-      if (tries > 50) break;
-    } while (
-      mouse.x >= randomX &&
-      mouse.x <= randomX + video.offsetWidth &&
-      mouse.y >= randomY &&
-      mouse.y <= randomY + video.offsetHeight
-    );
-
-    video.style.left = `${randomX}px`;
-    video.style.top = `${randomY}px`;
+    video.style.left = `${Math.floor(
+      Math.random() * (window.innerWidth - video.offsetWidth)
+    )}px`;
+    video.style.top = `${Math.floor(
+      Math.random() * (window.innerHeight - video.offsetHeight)
+    )}px`;
   }
 
   video.addEventListener("mouseenter", () => {
