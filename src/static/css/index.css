@@ -1,7 +1,7 @@
 * {
-  font-family: 'Comic Sans MS', 'Comic Sans', system-ui, -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-    'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Comic Sans MS", "Comic Sans", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
   box-sizing: content-box;
 }
 
@@ -120,23 +120,12 @@ div.extension {
   flex-wrap: wrap;
   align-content: center;
   align-items: center;
-  justify-content: space-between;
   max-width: 300px;
   padding: 10px;
-  gap: 20px;
+  gap: 10px;
   border-radius: var(--borderRadius);
   background-color: var(--foreground);
   border: 2px solid var(--border);
-}
-
-div.extension p {
-  font-size: 25px;
-  margin: 0;
-}
-
-div.extension p.description {
-  font-size: 18px;
-  font-weight: normal;
 }
 
 img#thumbnail {
@@ -144,36 +133,30 @@ img#thumbnail {
   border-radius: var(--borderRadius);
 }
 
-div#name {
+div.name {
   display: flex;
-  flex-direction: row;
-  align-content: center;
+  flex-direction: column;
   align-items: center;
-  justify-items: center;
-  justify-content: center;
   gap: 7px;
-  max-width: 100%;
+  max-width: 300px; 
 }
 
-div#name, div#name * {
-  overflow: hidden;
-  text-wrap: nowrap;
-  text-overflow: ellipsis;
+div.name p {
+  font-size: 25px;
+  white-space: nowrap;      
+  overflow: hidden;         
+  text-overflow: ellipsis;  
+  width: 100%;            
+  text-align: center;     
 }
 
-div#name button {
-  padding: 4px;
-  margin: 0;
-  width: fit-content;
-  height: fit-content;
-}
-
-div#name button img {
-  width: 25px;
-  height: 25px;
-  fill: var(--font);
-  color: var(--font);
-  background: none;
+div.name p.description {
+  font-size: 18px;
+  font-weight: normal;
+  white-space: normal;      
+  overflow: visible;         
+  text-overflow: unset;
+  width: auto;            
 }
 
 ::-webkit-scrollbar {
@@ -181,42 +164,42 @@ div#name button img {
   height: 12px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: calc(var(--borderRadius) * 0.75);
-}
-
-::-webkit-scrollbar-track {
-  background: #1d2127;
-  border-radius: calc(var(--borderRadius) * 0.75);
-}
-
 .thumbnail-wrapper {
   position: relative;
   display: flex;
 }
 
-.thumbnail-wrapper div#buttons {
+.thumbnail-wrapper div.buttons {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: var(--borderRadius);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.5);
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
   margin: 0;
   padding: 0;
-  border-radius: var(--borderRadius);
+  gap: 5px;
+  transition: opacity 0.2s ease-in-out;
 }
 
-.thumbnail-wrapper:hover div#buttons {
+.thumbnail-wrapper:hover div.buttons {
   opacity: 1;
 }
 
-.thumbnail-wrapper div#buttons button {
+.thumbnail-wrapper div.buttons button {
   border-color: var(--font);
   background-color: var(--background);
+}
+
+.thumbnail-wrapper div.buttons div {
+  display: inline-flex;
+  gap: 5px;
 }
 
 div#settings {
@@ -263,4 +246,29 @@ div.inline {
   align-items: center;
   justify-items: center;
   justify-content: center;
+  gap: 5px;
+}
+
+.platform-btn {
+  padding: 4px;
+  margin: 0;
+  width: fit-content;
+  height: fit-content;
+}
+
+.platform-btn img {
+  width: 40px;
+  height: 40px;
+  fill: var(--font);
+  color: var(--font);
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: calc(var(--borderRadius) * 0.75);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--foreground);
 }

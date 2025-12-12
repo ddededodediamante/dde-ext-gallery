@@ -41,6 +41,16 @@
     "tags": ["date", "day", "time", "format", "pretty"]
   },
   {
+    "id": "measurementFormat",
+    "name": "Measurement Format",
+    "description": "Convert & format units",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "tags": ["units", "length", "volume", "weight", "ruler"]
+  },
+  {
     "id": "speechSynthesis",
     "name": "Speech Synthesis",
     "description": "Play and customize TTS audio",

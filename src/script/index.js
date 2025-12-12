@@ -1,14 +1,14 @@
 async function getExtCode(id) {
   return await fetch(`/extensions/code/${id}.js`)
-    .then((response) => {
+    .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else return response.text();
     })
-    .then((data) => {
+    .then(data => {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       console.error(`Error fetching extension ${id}:`, error);
       return null;
     });
@@ -38,26 +38,28 @@ async function copyExt(id) {
 }
 
 async function copyUrlExt(id) {
-  await navigator.clipboard.writeText(`${window.location.origin}/extensions/code/${id}.js`);
+  await navigator.clipboard.writeText(
+    `${window.location.origin}/extensions/code/${id}.js`
+  );
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   let extensions = [];
 
   fetch("/extensions/extensions.json")
-    .then((response) => {
+    .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else return response.json();
     })
-    .then((data) => {
+    .then(data => {
       if (!data) throw new Error("Extensions data is empty");
 
       extensions = data;
 
       renderExtensions(extensions);
     })
-    .catch((error) => {
+    .catch(error => {
       console.error("Error fetching extensions:", error);
     });
 
@@ -69,59 +71,60 @@ document.addEventListener("DOMContentLoaded", function () {
       return (gallery.innerHTML = `<h2>No extensions found.</h2>`);
     }
 
-    extList.forEach((ext) => {
+    extList.forEach(ext => {
       if (ext?.hidden == true) return;
 
       const newElement = document.createElement("div");
       newElement.id = ext.id;
       newElement.className = "extension";
 
-      let nameDiv = `<div id="name">\n<p>${ext.name}</p>`;
-
-      if (ext.canBeUsedOn.tw === true) {
-        nameDiv += `
-          <button onclick="window.open('https://turbowarp.org', '_blank')">
-          <img src = "/src/static/icons/tw.svg" alt = "TurboWarp" />
-          </button>`;
+      let platformButtons = "";
+      if (ext.canBeUsedOn.tw) {
+        platformButtons += `
+        <button class="platform-btn" onclick="window.open('https://turbowarp.org', '_blank')">
+          <img src="/src/static/icons/tw.svg" alt="TurboWarp" title="TurboWarp" />
+        </button>`;
       }
-      if (ext.canBeUsedOn.pm === true) {
-        nameDiv += `
-          <button onclick="window.open('https://penguinmod.com', '_blank')">
-          <img src="/src/static/icons/pm.svg" alt="PenguinMod" />
-          </button>`;
+      if (ext.canBeUsedOn.pm) {
+        platformButtons += `
+        <button class="platform-btn" onclick="window.open('https://penguinmod.com', '_blank')">
+          <img src="/src/static/icons/pm.svg" alt="PenguinMod" title="PenguinMod" />
+        </button>`;
       }
-      if (ext.unfinished === true) {
-        nameDiv += `
-          <button disabled title="Work in progress">
-          <img src="/src/static/icons/hammer.svg" />
-          </button>`;
-      }
-
-      nameDiv += `</div>
-      <p class="description">${ext.description}</p>`;
 
       newElement.innerHTML = `
       <div class="thumbnail-wrapper">
         <img src="/extensions/thumbnail/${ext.id}.${ext.imgFormat ?? "svg"}" alt="${ext.name}" id="thumbnail" />
-        <div id="buttons">
-          <button onclick="downloadExt('${ext.id}')">Download</button>
-          <button onclick="copyExt('${ext.id}')">Copy</button>
-          <button onclick="copyUrlExt('${ext.id}')">URL</button>
+        <div class="buttons">
+          <div class="inline">
+            <button onclick="downloadExt('${ext.id}')">Download</button>
+            <button onclick="copyExt('${ext.id}')">Copy</button>
+            <button onclick="copyUrlExt('${ext.id}')">URL</button>
+          </div>
+          <div class="inline">
+            ${platformButtons}
+          </div>
         </div>
       </div>
 
-      ${nameDiv}`;
+      <div class="name">
+        <p>${ext.name}</p>
+        <p class="description">${ext.description}</p>
+      </div>`;
 
       gallery.appendChild(newElement);
     });
   }
 
   window.filterExtensions = function () {
-    const query = document.getElementById("search-bar").value.toLowerCase().trim();
+    const query = document
+      .getElementById("search-bar")
+      .value.toLowerCase()
+      .trim();
 
     renderExtensions(
       extensions.filter(
-        (ext) =>
+        ext =>
           ext.name.toLowerCase().includes(query) ||
           ext.description.toLowerCase().includes(query) ||
           (ext?.tags ?? []).includes(query)
@@ -149,7 +152,7 @@ function closeSettings() {
 }
 
 function saveSettings() {
-  ["background", "foreground", "font", "border", "borderRadius"].forEach((k) =>
+  ["background", "foreground", "font", "border", "borderRadius"].forEach(k =>
     localStorage.setItem(k, (window[k + "Picker"].value || "").toString())
   );
   loadSettings();
@@ -168,7 +171,7 @@ function loadSettings(settings) {
     let value = settings[i];
     documentStyle.setProperty(
       `--${i}`,
-      i === "borderRadius" ? value + 'px' : value
+      i === "borderRadius" ? value + "px" : value
     );
     window[i + "Picker"].value = value;
   }
