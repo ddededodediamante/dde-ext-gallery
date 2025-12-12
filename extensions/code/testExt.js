@@ -1,29 +1,23 @@
 (async function (Scratch) {
   "use strict";
 
-  if (!Scratch.extensions.unsandboxed) throw new Error("This extension must run unsandboxed!");
-
-  function sumToTranslate(path, dx = 0, dy = 0) {
-    if (!path) return;
-
-    let transform = path.getAttribute("transform") || "";
-
-    let match = transform.match(/translate\(([^)]+)\)/);
-    if (match) {
-      let [x, y] = match[1].split(/\s*,\s*|\s+/).map(Number);
-      x += dx;
-      y += dy;
-      transform = transform.replace(match[0], `translate(${x} ${y})`);
-    } else {
-      transform += ` translate(${dx} ${dy})`;
-    }
-
-    path.setAttribute("transform", transform.trim());
-  }
+  if (!Scratch.extensions.unsandboxed)
+    throw new Error("This extension must run unsandboxed!");
 
   // Thanks sharkpool for original patch!
   if (Scratch.gui)
     Scratch.gui.getBlockly().then((SB) => {
+      function waitForBlocks(ids, callback) {
+        const check = () => {
+          if (ids.every((id) => SB.Blocks[id])) {
+            callback(SB);
+          } else {
+            requestAnimationFrame(check);
+          }
+        };
+        check();
+      }
+
       const buttocks = (width, height) => {
         width -= 18;
         height /= 2;
@@ -32,7 +26,11 @@
 
       const octagon = (width, height) => {
         width -= 18;
-        return `M 9 0 l -10 10 v ${height - 20} l 10 10 h ${width} l 10 -10 v -${height - 20} l -10 -10 h -${width} z`;
+        return `M 9 0 l -10 10 v ${
+          height - 20
+        } l 10 10 h ${width} l 10 -10 v -${
+          height - 20
+        } l -10 -10 h -${width} z`;
       };
 
       const roundPuzzle = (width, height) => {
@@ -42,56 +40,44 @@
         return `M 20 0 q -10 0 -10 ${height} q -10 0 -10 10 q 0 10 10 10 q 0 ${height} 10 ${height} H ${width} q 10 0 10 -${height} q 10 0 10 -10 q 0 -10 -10 -10 q 0 -${height} -10 -${height} H 20 Z`;
       };
 
-      const frameAdapter = (width, height) => {
-        return `M 1 0 c 0 2.2 1.8 4 4 4 h 20 c 2 0 3 1 4 2 l 4 4 c 1 1 2 2 4 2 h 12 c 2 0 3 -1 4 -2 l 4 -4 c 1 -1 2 -2 4 -2 h 91.4 c 2.2 0 4 -1.8 4 -4 v -40 c 0 -2.2 -1.8 -4 -4 -4 h -3.8 c -2.2 0 -4 1.8 -4 4 v 28.2 c 0 2.2 -1.8 4 -4 4 h -123.6 c -2.2 0 -4 -1.8 -4 -4 v -28.2 c 0 -2.2 -1.8 -4 -4 -4 h -1.6 c 0 0 0 0 0 0 h -2.3 c -2.2 0 -4 1.8 -4 4 Z`;
-      };
-
       const ogRender = SB.BlockSvg.prototype.render;
       SB.BlockSvg.prototype.render = function (...args) {
         const data = ogRender.call(this, ...args);
 
         if (this?.svgPath_ && this?.type?.startsWith("ddeTestExt_")) {
-          let thisSafeType = this.type.replace("ddeTestExt_", "");
-
           function getShape(block) {
             let { width, height } = block;
             let safeType = block.type.replace("ddeTestExt_", "");
             let outputs = block?.outputConnection?.check_ ?? [];
 
             if (safeType === "octagon") return octagon(width, height);
-            if (safeType === "frame_adapter") return frameAdapter(width, height);
             if (outputs.includes("Boolean")) return buttocks(width, height);
             else return roundPuzzle(width, height);
           }
 
-          if (this?.outputConnection?.check_?.length > 0 || thisSafeType === "frame_adapter") {
+          if (this?.outputConnection?.check_?.length > 0) {
             this.svgPath_.setAttribute("d", getShape(this));
           }
 
-          if (thisSafeType === "frame_adapter") {
-            this.inputList.forEach((input) => {
-              const block = input?.connection?.targetBlock();
-              if (block && block?.svgPath_ && path.getAttribute("data_translate_from_frame_adapter") !== true) {
-                block.svgPath_.setAttribute("data_translate_from_frame_adapter", true);
-                sumToTranslate(block.svgPath_, -3, -44);
-              }
-            });
-          } else {
-            this.inputList.forEach((input) => {
-              const block = input?.connection?.targetBlock();
-              if (block && block?.svgPath_) {
-                block.svgPath_.setAttribute("d", getShape(block));
-              }
-            });
-          }
+          this.inputList.forEach((input) => {
+            const block = input?.connection?.targetBlock();
+            if (block && block?.svgPath_ && block?.outputConnection) {
+              block.svgPath_.setAttribute("d", getShape(block));
+            }
+          });
         }
 
         return data;
       };
 
-      setTimeout(() => {
+      waitForBlocks(["ddeTestExt_shapeshifting", "ddeTestExt_hey"], (SB) => {
         SB.Blocks["ddeTestExt_shapeshifting"].onchange = function (event) {
-          if (!this.workspace || event.type !== "change" || event?.blockId !== this?.childBlocks_?.at(0)?.id) return;
+          if (
+            !this.workspace ||
+            event.type !== "change" ||
+            event?.blockId !== this?.childBlocks_?.at(0)?.id
+          )
+            return;
 
           if (event.name === "MODE" && event.element === "field") {
             this.unplug(true);
@@ -106,7 +92,17 @@
             }
           }
         };
-      }, 500);
+
+        SB.Blocks["ddeTestExt_hey"].init = function () {
+          this.appendDummyInput().appendField("run this");
+          this.appendStatementInput("code").setCheck(null);
+          this.appendDummyInput().appendField("and also run below");
+          this.setColour("#81aaef");
+          this.setTooltip("this is a tooltip");
+          this.setNextStatement(true, null);
+          this.isHat_ = true;
+        };
+      });
     });
 
   // Made by ddededodediamante
@@ -115,7 +111,7 @@
     getInfo() {
       return {
         id: "ddeTestExt",
-        name: "ddededodediamante ext",
+        name: "dde Text Extension",
         color1: "#ee74b5",
         blocks: [
           {
@@ -176,11 +172,20 @@
             },
           },
           {
-            opcode: "frame_adapter",
-            color1: "#b1b1b1",
+            opcode: "hey",
             blockType: Scratch.BlockType.CONDITIONAL,
-            text: "‎",
-            branchCount: 1,
+            text: "run this %1 and also run below",
+            color1: "#81aaef",
+            arguments: {
+              code: {
+                type: Scratch.ArgumentType.STACK,
+              },
+            },
+            branches: [
+              {
+                name: "code"
+              },
+            ],
           },
         ],
         menus: {
@@ -236,12 +241,8 @@
       } else return Math.random();
     }
 
-    diarrhea() {
-      return "diarrhea";
-    }
-
-    frame_adapter(_args, util) {
-      util.startBranch(1);
+    hey(args, util) {
+      util.startBranch(1, false);
     }
   }
 

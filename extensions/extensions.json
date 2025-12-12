@@ -72,17 +72,6 @@
     "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
   },
   {
-    "id": "posenet2scratch",
-    "name": "Posenet2Scratch",
-    "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
-    "canBeUsedOn": {
-      "tw": true,
-      "pm": true
-    },
-    "imgFormat": "png",
-    "tags": ["movement", "action", "ported"]
-  },
-  {
     "id": "potatoExtension",
     "name": "Potato Extension",
     "description": "yummy potatoes 🥔",
@@ -112,5 +101,27 @@
     },
     "imgFormat": "png",
     "tags": ["joke", "fun", "video", "game"]
+  },
+  {
+    "id": "posenet2scratch",
+    "name": "Posenet2Scratch",
+    "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "imgFormat": "png",
+    "tags": ["movement", "action", "ported"]
+  },
+  {
+    "id": "facemesh2scratch",
+    "name": "Facemesh2Scratch",
+    "description": "Get human faces as meshes using a webcam. (MADE BY: champierre)",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true
+    },
+    "imgFormat": "png",
+    "tags": ["movement", "action", "ported"]
   }
 ]
