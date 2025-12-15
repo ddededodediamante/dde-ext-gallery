@@ -58,7 +58,7 @@
     }
 
     toString() {
-      return "Minecraft";
+      return "PenguinMod";
     }
 
     toReporterContent() {
