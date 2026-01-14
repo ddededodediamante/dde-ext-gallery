@@ -22,7 +22,7 @@
   {
     "id": "stringMutilation",
     "name": "String Mutilation",
-    "description": "Change a string in various ways.",
+    "description": "Modify a string in various ways",
     "canBeUsedOn": {
       "tw": true,
       "pm": true
@@ -80,6 +80,16 @@
       "pm": false
     },
     "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
+  },
+  {
+    "id": "superBooleans",
+    "name": "Super Booleans",
+    "description": "Overly complex booleans.",
+    "canBeUsedOn": {
+      "tw": false,
+      "pm": true
+    },
+    "tags": ["advanced", "states", "true", "false", "boolean"]
   },
   {
     "id": "potatoExtension",
