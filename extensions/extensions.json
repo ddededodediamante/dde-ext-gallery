@@ -84,7 +84,7 @@
   {
     "id": "superBooleans",
     "name": "Super Booleans",
-    "description": "Overly complex booleans.",
+    "description": "Overly complex booleans",
     "canBeUsedOn": {
       "tw": false,
       "pm": true
