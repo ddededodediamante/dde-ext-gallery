@@ -54,6 +54,8 @@
   }
 
   class ddeDateType {
+    customId = "ddeDateFormat.date"
+
     constructor(dateInput) {
       this._date =
         dateInput instanceof Date
@@ -61,7 +63,6 @@
           : dateInput instanceof ddeDateType
             ? dateInput._date
             : new Date(dateInput ?? NaN);
-      this.customId = "ddeDateFormat.date";
     }
 
     isValid() {
@@ -98,7 +99,7 @@
 
         const detail = element(
           "span",
-          this._date.toLocaleDateString(undefined, {
+          this._date.toLocaleDateString(activeLocale, {
             weekday: "short",
             year: "numeric",
             month: "short",
@@ -301,7 +302,7 @@
 
   if (isPM)
     Scratch.vm.runtime.registerSerializer(
-      ddeDateType.prototype.customId,
+      "ddeDateFormat.date",
       i => {
         if (i instanceof ddeDateType) return { dateString: i._date };
       },
@@ -310,7 +311,17 @@
       },
     );
 
+  let activeLocale = undefined;
+
   class ddeDateExtension {
+    serialize() {
+      return { activeLocale };
+    }
+
+    deserialize(data) {
+      activeLocale = data.activeLocale;
+    }
+
     getInfo() {
       return {
         id: "ddeDateFormatV2",
@@ -475,6 +486,23 @@
             },
             ...ddeDateFormat.BlockOutput,
           },
+          { blockType: Scratch.BlockType.LABEL, text: "Locale" },
+          {
+            opcode: "setLocale",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "set locale to [locale]",
+            arguments: {
+              locale: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "locales",
+              },
+            },
+          },
+          {
+            opcode: "getLocale",
+            blockType: Scratch.BlockType.REPORTER,
+            text: "current locale",
+          },
         ],
         menus: {
           compareOperations: {
@@ -536,8 +564,50 @@
               { text: "ISO string", value: "iso" },
             ],
           },
+          locales: {
+            acceptReporters: true,
+            items: [
+              { text: "browser default", value: "default" },
+              { text: "English (US)",    value: "en-US" },
+              { text: "English (UK)",    value: "en-GB" },
+              { text: "Spanish (ES)",    value: "es-ES" },
+              { text: "Spanish (MX)",    value: "es-MX" },
+              { text: "French (FR)",     value: "fr-FR" },
+              { text: "German (DE)",     value: "de-DE" },
+              { text: "Italian (IT)",    value: "it-IT" },
+              { text: "Portuguese (BR)", value: "pt-BR" },
+              { text: "Portuguese (PT)", value: "pt-PT" },
+              { text: "Dutch (NL)",      value: "nl-NL" },
+              { text: "Polish (PL)",     value: "pl-PL" },
+              { text: "Russian (RU)",    value: "ru-RU" },
+              { text: "Japanese (JP)",   value: "ja-JP" },
+              { text: "Chinese (CN)",    value: "zh-CN" },
+              { text: "Chinese (TW)",    value: "zh-TW" },
+              { text: "Korean (KR)",     value: "ko-KR" },
+              { text: "Arabic (SA)",     value: "ar-SA" },
+              { text: "Hindi (IN)",      value: "hi-IN" },
+              { text: "Turkish (TR)",    value: "tr-TR" },
+              { text: "Swedish (SE)",    value: "sv-SE" },
+              { text: "Norwegian (NO)",  value: "nb-NO" },
+              { text: "Danish (DK)",     value: "da-DK" },
+              { text: "Finnish (FI)",    value: "fi-FI" },
+              { text: "Greek (GR)",      value: "el-GR" },
+              { text: "Hebrew (IL)",     value: "he-IL" },
+              { text: "Indonesian (ID)", value: "id-ID" },
+              { text: "Thai (TH)",       value: "th-TH" },
+              { text: "Vietnamese (VN)", value: "vi-VN" },
+            ],
+          },
         },
       };
+    }
+
+    setLocale({ locale }) {
+      activeLocale = locale === "default" ? undefined : locale;
+    }
+
+    getLocale() {
+      return activeLocale || "default";
     }
 
     toDateType(input) {
@@ -568,7 +638,7 @@
       const d = this.toNativeDate(date);
       if (isNaN(d.getTime())) throw new Error("Invalid Date");
 
-      return d.toLocaleDateString(undefined, {
+      return d.toLocaleDateString(activeLocale, {
         weekday: type,
         year: "numeric",
         month: type,
@@ -775,9 +845,9 @@
 
       switch (property) {
         case "weekend":
-          return [0, 6].includes(d.getDay());
+          return d.getDay() === 0 || d.getDay() === 6;
         case "weekday":
-          return ![0, 6].includes(d.getDay());
+          return d.getDay() !== 0 && d.getDay() !== 6;
         case "today":
           return sameDay(d, now);
         case "yesterday":
