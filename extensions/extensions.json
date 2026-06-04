@@ -123,6 +123,17 @@
     "tags": ["joke", "fun", "video", "game"]
   },
   {
+    "id": "subwaySurfersV2",
+    "name": "Subway Surfers V2",
+    "description": "The cool sibling of the original Subway Surfers extension.",
+    "canBeUsedOn": {
+      "tw": false,
+      "pm": true
+    },
+    "imgFormat": "jpg",
+    "tags": ["joke", "fun", "video", "game"]
+  },
+  {
     "id": "posenet2scratch",
     "name": "Posenet2Scratch",
     "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
