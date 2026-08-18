@@ -86,15 +86,25 @@ input[type="color"] {
   cursor: pointer;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+}
+
 #tagthing {
   display: flex;
   flex-direction: row;
-  gap: 13px;
   justify-content: center;
   justify-items: center;
   align-items: center;
   text-align: center;
   font-size: larger;
+  gap: 1rem;
 }
 
 #tagthing img {
@@ -110,7 +120,7 @@ div#buttons {
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
-  align-items: center;
+  align-items: stretch;
 }
 
 div.extension {
@@ -138,25 +148,25 @@ div.name {
   flex-direction: column;
   align-items: center;
   gap: 7px;
-  max-width: 300px; 
+  max-width: 300px;
 }
 
 div.name p {
   font-size: 25px;
-  white-space: nowrap;      
-  overflow: hidden;         
-  text-overflow: ellipsis;  
-  width: 100%;            
-  text-align: center;     
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
 }
 
 div.name p.description {
   font-size: 18px;
   font-weight: normal;
-  white-space: normal;      
-  overflow: visible;         
+  white-space: normal;
+  overflow: visible;
   text-overflow: unset;
-  width: auto;            
+  width: auto;
 }
 
 ::-webkit-scrollbar {
@@ -271,4 +281,37 @@ div.inline {
 
 ::-webkit-scrollbar-track {
   background: var(--foreground);
+}
+
+#platform-filters {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.platform-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 2px solid var(--border);
+  border-radius: calc(var(--borderRadius) * 0.75);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.platform-checkbox:hover {
+  background-color: var(--border);
+}
+
+.platform-checkbox input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.platform-checkbox img {
+  width: 24px;
+  height: 24px;
 }

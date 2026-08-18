@@ -91,6 +91,12 @@ document.addEventListener("DOMContentLoaded", function () {
           <img src="/src/static/icons/pm.svg" alt="PenguinMod" title="PenguinMod" />
         </button>`;
       }
+      if (ext.canBeUsedOn.nb) {
+        platformButtons += `
+        <button class="platform-btn" onclick="window.open('https://nitrobolt.org', '_blank')">
+          <img src="/src/static/icons/nb.svg" alt="NitroBolt" title="NitroBolt" />
+        </button>`;
+      }
 
       newElement.innerHTML = `
       <div class="thumbnail-wrapper">
@@ -122,12 +128,17 @@ document.addEventListener("DOMContentLoaded", function () {
       .value.toLowerCase()
       .trim();
 
+    const checkedPlatforms = [...document.querySelectorAll("#platform-filters input:checked")]
+      .map(input => input.value);
+
     renderExtensions(
       extensions.filter(
         ext =>
-          ext.name.toLowerCase().includes(query) ||
-          ext.description.toLowerCase().includes(query) ||
-          (ext?.tags ?? []).includes(query)
+          (ext.name.toLowerCase().includes(query) ||
+            ext.description.toLowerCase().includes(query) ||
+            (ext?.tags ?? []).includes(query)) &&
+          (checkedPlatforms.length === 0 ||
+            checkedPlatforms.some(p => ext.canBeUsedOn[p]))
       )
     );
   };

@@ -5,7 +5,8 @@
     "description": "Control or send events to sprites",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "tags": ["sprites", "events", "change", "control"]
   },
@@ -15,7 +16,8 @@
     "description": "Display customizable alerts and popups",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "tags": ["customizable", "alerts", "display"]
   },
@@ -25,7 +27,8 @@
     "description": "Modify a string in various ways",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "imgFormat": "png",
     "tags": ["string", "text", "change", "control"]
@@ -36,7 +39,8 @@
     "description": "Manage & format dates and time",
     "canBeUsedOn": {
       "tw": false,
-      "pm": true
+      "pm": true,
+      "nb": false
     },
     "tags": ["date", "day", "time", "format", "pretty"]
   },
@@ -46,7 +50,8 @@
     "description": "Convert & format units",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "tags": ["units", "length", "volume", "weight", "ruler"]
   },
@@ -56,7 +61,8 @@
     "description": "Play and customize TTS audio",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "tags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
   },
@@ -66,7 +72,8 @@
     "description": "Search for images on Nasa's public database",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "tags": ["image", "images", "fetch", "url", "urls"]
   },
@@ -77,7 +84,8 @@
     "hidden": true,
     "canBeUsedOn": {
       "tw": true,
-      "pm": false
+      "pm": false,
+      "nb": true
     },
     "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
   },
@@ -87,7 +95,8 @@
     "description": "Overly complex booleans",
     "canBeUsedOn": {
       "tw": false,
-      "pm": true
+      "pm": true,
+      "nb": false
     },
     "tags": ["advanced", "states", "true", "false", "boolean"]
   },
@@ -97,7 +106,8 @@
     "description": "yummy potatoes 🥔",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "tags": ["joke", "fun", "potato", "yummy"]
   },
@@ -107,7 +117,8 @@
     "description": "The best poop ever",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "tags": ["joke", "fun", "poop", "crap"]
   },
@@ -117,7 +128,8 @@
     "description": "Watch Subway Surfers while you're coding. Multitask!",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "imgFormat": "png",
     "tags": ["joke", "fun", "video", "game"]
@@ -128,7 +140,8 @@
     "description": "The cool sibling of the original Subway Surfers extension.",
     "canBeUsedOn": {
       "tw": false,
-      "pm": true
+      "pm": true,
+      "nb": false
     },
     "imgFormat": "jpg",
     "tags": ["joke", "fun", "video", "game"]
@@ -139,7 +152,8 @@
     "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "imgFormat": "png",
     "tags": ["movement", "action", "ported"]
@@ -150,7 +164,8 @@
     "description": "Get human faces as meshes using a webcam. (MADE BY: champierre)",
     "canBeUsedOn": {
       "tw": true,
-      "pm": true
+      "pm": true,
+      "nb": true
     },
     "imgFormat": "png",
     "tags": ["movement", "action", "ported"]
