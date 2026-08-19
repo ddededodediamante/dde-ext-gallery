@@ -174,7 +174,7 @@
           {
             opcode: "hey",
             blockType: Scratch.BlockType.CONDITIONAL,
-            text: "run this %1 and also run below",
+            text: "run this [code] and also run below",
             color1: "#81aaef",
             arguments: {
               code: {

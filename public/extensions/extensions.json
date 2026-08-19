@@ -1,0 +1,173 @@
+[
+  {
+    "id": "spriteController",
+    "name": "Sprite Controller",
+    "description": "Control or send events to sprites",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "tags": ["sprites", "events", "change", "control"]
+  },
+  {
+    "id": "sweetAlert2",
+    "name": "Sweet Alerts",
+    "description": "Display customizable alerts and popups",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "tags": ["customizable", "alerts", "display"]
+  },
+  {
+    "id": "stringMutilation",
+    "name": "String Mutilation",
+    "description": "Modify a string in various ways",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "imgFormat": "png",
+    "tags": ["string", "text", "change", "control"]
+  },
+  {
+    "id": "dateFormatV2",
+    "name": "Date Format",
+    "description": "Manage & format dates and time",
+    "canBeUsedOn": {
+      "tw": false,
+      "pm": true,
+      "nb": false
+    },
+    "tags": ["date", "day", "time", "format", "pretty"]
+  },
+  {
+    "id": "measurementFormat",
+    "name": "Measurement Format",
+    "description": "Convert & format units",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "tags": ["units", "length", "volume", "weight", "ruler"]
+  },
+  {
+    "id": "speechSynthesis",
+    "name": "Speech Synthesis",
+    "description": "Play and customize TTS audio",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "tags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
+  },
+  {
+    "id": "nasaMediaSearch",
+    "name": "Nasa Media Search",
+    "description": "Search for images on Nasa's public database",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "tags": ["image", "images", "fetch", "url", "urls"]
+  },
+  {
+    "id": "toggleVisibility",
+    "name": "Toggle Visibility",
+    "description": "Collapse and Expand blocks",
+    "hidden": true,
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": false,
+      "nb": true
+    },
+    "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
+  },
+  {
+    "id": "superBooleans",
+    "name": "Super Booleans",
+    "description": "Overly complex booleans",
+    "canBeUsedOn": {
+      "tw": false,
+      "pm": true,
+      "nb": false
+    },
+    "tags": ["advanced", "states", "true", "false", "boolean"]
+  },
+  {
+    "id": "potatoExtension",
+    "name": "Potato Extension",
+    "description": "yummy potatoes 🥔",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "tags": ["joke", "fun", "potato", "yummy"]
+  },
+  {
+    "id": "poopExtension",
+    "name": "Poop Extension",
+    "description": "The best poop ever",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "tags": ["joke", "fun", "poop", "crap"]
+  },
+  {
+    "id": "subwaySurfers",
+    "name": "Subway Surfers",
+    "description": "Watch Subway Surfers while you're coding. Multitask!",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "imgFormat": "png",
+    "tags": ["joke", "fun", "video", "game"]
+  },
+  {
+    "id": "subwaySurfersV2",
+    "name": "Subway Surfers V2",
+    "description": "The cool sibling of the original Subway Surfers extension.",
+    "canBeUsedOn": {
+      "tw": false,
+      "pm": true,
+      "nb": false
+    },
+    "imgFormat": "jpg",
+    "tags": ["joke", "fun", "video", "game"]
+  },
+  {
+    "id": "posenet2scratch",
+    "name": "Posenet2Scratch",
+    "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "imgFormat": "png",
+    "tags": ["movement", "action", "ported"]
+  },
+  {
+    "id": "facemesh2scratch",
+    "name": "Facemesh2Scratch",
+    "description": "Get human faces as meshes using a webcam. (MADE BY: champierre)",
+    "canBeUsedOn": {
+      "tw": true,
+      "pm": true,
+      "nb": true
+    },
+    "imgFormat": "png",
+    "tags": ["movement", "action", "ported"]
+  }
+]

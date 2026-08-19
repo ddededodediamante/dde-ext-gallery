@@ -1,70 +1,15 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>dde's Extension Gallery</title>
-  <link rel="stylesheet" type="text/css" href="src/static/css/index.css" />
 </head>
 
 <body>
-  <div id="settings" style="display: none;">
-    <div id="settingsContent">
-      <button onclick="closeSettings()" style="position: absolute; top: 10px; right: 10px;">X</button>
-
-      <h2>Settings</h2>
-
-      <label>Background Color: <input type="color" id="backgroundPicker"></label>
-      <label>Foreground Color: <input type="color" id="foregroundPicker"></label>
-      <label>Border Color: <input type="color" id="borderPicker"></label>
-      <label>Font Color: <input type="color" id="fontPicker"></label>
-      <label>Border Radius: <input type="number" id="borderRadiusPicker" min="0" max="20"></label>
-
-      <div class="inline" style="gap: 10px">
-        <button onclick="saveSettings()">Save</button>
-        <button onclick="setMode('dark')">Dark Mode</button>
-        <button onclick="setMode('light')">Light Mode</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="tagthing">
-    <a href="https://github.com/ddededodediamante">
-      <img src="https://avatars.githubusercontent.com/u/111385835" />
-    </a>
-    ddededodediamante's Extension Gallery
-  </div>
-
-  <div id="search-container">
-    <input type="text" id="search-bar" placeholder="Search extensions..." oninput="filterExtensions()" />
-    <button onclick="openSettings()">Settings</button>
-  </div>
-
-  <div class="row">
-    <label>Filter by platform</label>
-    <div id="platform-filters">
-      <label class="platform-checkbox">
-        <input type="checkbox" value="tw" onchange="filterExtensions()" />
-        <img src="/src/static/icons/tw.svg" alt="TurboWarp" />
-        <span>TurboWarp</span>
-      </label>
-      <label class="platform-checkbox">
-        <input type="checkbox" value="pm" onchange="filterExtensions()" />
-        <img src="/src/static/icons/pm.svg" alt="PenguinMod" />
-        <span>PenguinMod</span>
-      </label>
-      <label class="platform-checkbox">
-        <input type="checkbox" value="nb" onchange="filterExtensions()" />
-        <img src="/src/static/icons/nb.svg" alt="NitroBolt" />
-        <span>NitroBolt</span>
-      </label>
-    </div>
-  </div>
-
-  <div id="gallery"></div>
-
-  <h6 id="footer">
-    ddededodediamante's Extension Gallery is not affiliated with PenguinMod,
-    TurboWarp or Scratch. <a href="https://github.com/ddededodediamante/dde-ext-gallery">Code source.</a>
-  </h6>
-
-  <script src="src/script/index.js"></script>
+  <div id="app"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
+
+</html>
