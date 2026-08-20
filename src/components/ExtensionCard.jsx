@@ -1,7 +1,22 @@
 const PLATFORM_LINKS = {
-  tw: { url: "https://turbowarp.org", icon: "/icons/tw.svg", alt: "TurboWarp", title: "TurboWarp" },
-  pm: { url: "https://penguinmod.com", icon: "/icons/pm.svg", alt: "PenguinMod", title: "PenguinMod" },
-  nb: { url: "https://nitrobolt.org", icon: "/icons/nb.svg", alt: "NitroBolt", title: "NitroBolt" },
+  tw: {
+    url: "https://turbowarp.org",
+    icon: "/icons/tw.svg",
+    alt: "TurboWarp",
+    title: "TurboWarp"
+  },
+  pm: {
+    url: "https://penguinmod.com",
+    icon: "/icons/pm.svg",
+    alt: "PenguinMod",
+    title: "PenguinMod"
+  },
+  nb: {
+    url: "https://nitrobolt.org",
+    icon: "/icons/nb.svg",
+    alt: "NitroBolt",
+    title: "NitroBolt"
+  }
 };
 
 async function getExtCode(id) {
@@ -51,12 +66,12 @@ export default function ExtensionCard({ ext }) {
           className="thumbnail"
         />
         <div className="buttons">
-          <div className="inline">
+          <div className="row">
             <button onClick={() => downloadExt(ext.id)}>Download</button>
             <button onClick={() => copyExt(ext.id)}>Copy</button>
             <button onClick={() => copyUrlExt(ext.id)}>URL</button>
           </div>
-          <div className="inline">
+          <div className="row">
             {Object.entries(PLATFORM_LINKS).map(([key, { url, icon, alt, title }]) =>
               ext.canBeUsedOn[key] ? (
                 <button
@@ -73,7 +88,15 @@ export default function ExtensionCard({ ext }) {
       </div>
 
       <div className="name">
-        <p>{ext.name}</p>
+        <p className="title">
+          {ext.name}
+          {ext.deprecated && (
+            <img src="/icons/headstone.svg" alt="Deprecated" className="ext-icon" />
+          )}
+          {ext.updated && (
+            <img src="/icons/sparkles.svg" alt="Updated" className="ext-icon" />
+          )}
+        </p>
         <p className="description">{ext.description}</p>
       </div>
     </div>

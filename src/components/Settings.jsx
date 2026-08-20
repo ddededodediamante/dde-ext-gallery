@@ -55,7 +55,7 @@ export default function Settings({ open, settings, onClose, onSave, onSetMode })
           <input type="number" ref={radiusRef} min="0" max="20" />
         </label>
 
-        <div className="inline" style="gap: 10px">
+        <div className="row" style="gap: 10px">
           <button onClick={handleSave}>Save</button>
           <button onClick={() => onSetMode("dark")}>Dark Mode</button>
           <button onClick={() => onSetMode("light")}>Light Mode</button>

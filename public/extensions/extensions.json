@@ -8,7 +8,8 @@
       "pm": true,
       "nb": true
     },
-    "tags": ["sprites", "events", "change", "control"]
+    "tags": ["sprites", "events"],
+    "extraTags": ["sprites", "events", "change", "control"]
   },
   {
     "id": "sweetAlert2",
@@ -19,7 +20,8 @@
       "pm": true,
       "nb": true
     },
-    "tags": ["customizable", "alerts", "display"]
+    "tags": ["ui", "utility"],
+    "extraTags": ["customizable", "alerts", "display"]
   },
   {
     "id": "stringMutilation",
@@ -31,7 +33,8 @@
       "nb": true
     },
     "imgFormat": "png",
-    "tags": ["string", "text", "change", "control"]
+    "tags": ["text", "utility"],
+    "extraTags": ["string", "text", "change", "control"]
   },
   {
     "id": "dateFormatV2",
@@ -42,7 +45,8 @@
       "pm": true,
       "nb": false
     },
-    "tags": ["date", "day", "time", "format", "pretty"]
+    "tags": ["formatting", "utility"],
+    "extraTags": ["date", "day", "time", "format", "pretty"]
   },
   {
     "id": "measurementFormat",
@@ -53,7 +57,8 @@
       "pm": true,
       "nb": true
     },
-    "tags": ["units", "length", "volume", "weight", "ruler"]
+    "tags": ["formatting", "utility"],
+    "extraTags": ["units", "length", "volume", "weight", "ruler"]
   },
   {
     "id": "speechSynthesis",
@@ -64,7 +69,8 @@
       "pm": true,
       "nb": true
     },
-    "tags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
+    "tags": ["audio", "media"],
+    "extraTags": ["speech", "tts", "text to speech", "text-to-speech", "audio", "play"]
   },
   {
     "id": "nasaMediaSearch",
@@ -75,7 +81,8 @@
       "pm": true,
       "nb": true
     },
-    "tags": ["image", "images", "fetch", "url", "urls"]
+    "tags": ["images", "media"],
+    "extraTags": ["image", "images", "fetch", "url", "urls"]
   },
   {
     "id": "toggleVisibility",
@@ -87,7 +94,8 @@
       "pm": false,
       "nb": true
     },
-    "tags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
+    "tags": ["ui", "utility"],
+    "extraTags": ["collapse", "expand", "blocks", "addon", "context", "menu"]
   },
   {
     "id": "superBooleans",
@@ -98,7 +106,8 @@
       "pm": true,
       "nb": false
     },
-    "tags": ["advanced", "states", "true", "false", "boolean"]
+    "tags": ["logic", "utility"],
+    "extraTags": ["advanced", "states", "true", "false", "boolean"]
   },
   {
     "id": "potatoExtension",
@@ -109,7 +118,8 @@
       "pm": true,
       "nb": true
     },
-    "tags": ["joke", "fun", "potato", "yummy"]
+    "tags": ["fun"],
+    "extraTags": ["joke", "fun", "potato", "yummy"]
   },
   {
     "id": "poopExtension",
@@ -120,7 +130,8 @@
       "pm": true,
       "nb": true
     },
-    "tags": ["joke", "fun", "poop", "crap"]
+    "tags": ["fun"],
+    "extraTags": ["joke", "fun", "poop", "crap"]
   },
   {
     "id": "subwaySurfers",
@@ -132,7 +143,8 @@
       "nb": true
     },
     "imgFormat": "png",
-    "tags": ["joke", "fun", "video", "game"]
+    "tags": ["fun", "media"],
+    "extraTags": ["joke", "fun", "video", "game"]
   },
   {
     "id": "subwaySurfersV2",
@@ -144,7 +156,8 @@
       "nb": false
     },
     "imgFormat": "jpg",
-    "tags": ["joke", "fun", "video", "game"]
+    "tags": ["fun", "media"],
+    "extraTags": ["joke", "fun", "video", "game"]
   },
   {
     "id": "posenet2scratch",
@@ -156,7 +169,8 @@
       "nb": true
     },
     "imgFormat": "png",
-    "tags": ["movement", "action", "ported"]
+    "tags": ["ai", "sensors"],
+    "extraTags": ["movement", "action", "ported"]
   },
   {
     "id": "facemesh2scratch",
@@ -168,6 +182,7 @@
       "nb": true
     },
     "imgFormat": "png",
-    "tags": ["movement", "action", "ported"]
+    "tags": ["ai", "sensors"],
+    "extraTags": ["movement", "action", "ported"]
   }
 ]
