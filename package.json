@@ -6,7 +6,8 @@
   "packageManager": "pnpm@10.34.5",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "generate-pack": "node scripts/generate-pack.js",
+    "build": "node scripts/generate-pack.js && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
