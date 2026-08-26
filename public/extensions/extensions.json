@@ -2,7 +2,7 @@
   {
     "id": "spriteController",
     "name": "Sprite Controller",
-    "description": "Control or send events to sprites",
+    "description": "Control or send events to sprites.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -14,7 +14,7 @@
   {
     "id": "sweetAlert2",
     "name": "Sweet Alerts",
-    "description": "Display customizable alerts and popups",
+    "description": "Display customizable alerts and popups.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -26,7 +26,7 @@
   {
     "id": "stringMutilation",
     "name": "String Mutilation",
-    "description": "Modify a string in various ways",
+    "description": "Modify a string in various ways.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -39,7 +39,7 @@
   {
     "id": "dateFormatV2",
     "name": "Date Format",
-    "description": "Manage & format dates and time",
+    "description": "Manage and format dates and time.",
     "canBeUsedOn": {
       "tw": false,
       "pm": true,
@@ -51,7 +51,7 @@
   {
     "id": "measurementFormat",
     "name": "Measurement Format",
-    "description": "Convert & format units",
+    "description": "Convert and format units.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -63,7 +63,7 @@
   {
     "id": "speechSynthesis",
     "name": "Speech Synthesis",
-    "description": "Play and customize TTS audio",
+    "description": "Play and customize TTS audio.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -75,7 +75,7 @@
   {
     "id": "nasaMediaSearch",
     "name": "Nasa Media Search",
-    "description": "Search for images on Nasa's public database",
+    "description": "Search for images on Nasa's public database.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -87,7 +87,7 @@
   {
     "id": "toggleVisibility",
     "name": "Toggle Visibility",
-    "description": "Collapse and Expand blocks",
+    "description": "Collapse and Expand blocks.",
     "hidden": true,
     "canBeUsedOn": {
       "tw": true,
@@ -100,7 +100,7 @@
   {
     "id": "superBooleans",
     "name": "Super Booleans",
-    "description": "Overly complex booleans",
+    "description": "Overly complex booleans.",
     "canBeUsedOn": {
       "tw": false,
       "pm": true,
@@ -124,7 +124,7 @@
   {
     "id": "poopExtension",
     "name": "Poop Extension",
-    "description": "The best poop ever",
+    "description": "The best poop ever!",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -162,7 +162,7 @@
   {
     "id": "posenet2scratch",
     "name": "Posenet2Scratch",
-    "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
+    "description": "Detect human poses fast using a webcam.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -170,12 +170,13 @@
     },
     "imgFormat": "png",
     "tags": ["ai", "sensors"],
-    "extraTags": ["movement", "action", "ported"]
+    "extraTags": ["movement", "action", "ported"],
+    "author": "champierre"
   },
   {
     "id": "facemesh2scratch",
     "name": "Facemesh2Scratch",
-    "description": "Get human faces as meshes using a webcam. (MADE BY: champierre)",
+    "description": "Get human faces as meshes using a webcam.",
     "canBeUsedOn": {
       "tw": true,
       "pm": true,
@@ -183,6 +184,7 @@
     },
     "imgFormat": "png",
     "tags": ["ai", "sensors"],
-    "extraTags": ["movement", "action", "ported"]
+    "extraTags": ["movement", "action", "ported"],
+    "author": "champierre"
   }
 ]

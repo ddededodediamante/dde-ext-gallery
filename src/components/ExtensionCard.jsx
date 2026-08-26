@@ -3,20 +3,20 @@ const PLATFORM_LINKS = {
     url: "https://turbowarp.org",
     icon: "/icons/tw.svg",
     alt: "TurboWarp",
-    title: "TurboWarp"
+    title: "TurboWarp",
   },
   pm: {
     url: "https://penguinmod.com",
     icon: "/icons/pm.svg",
     alt: "PenguinMod",
-    title: "PenguinMod"
+    title: "PenguinMod",
   },
   nb: {
     url: "https://nitrobolt.org",
     icon: "/icons/nb.svg",
     alt: "NitroBolt",
-    title: "NitroBolt"
-  }
+    title: "NitroBolt",
+  },
 };
 
 async function getExtCode(id) {
@@ -50,7 +50,7 @@ async function copyExt(id) {
 
 async function copyUrlExt(id) {
   await navigator.clipboard.writeText(
-    `${window.location.origin}/extensions/code/${id}.js`
+    `${window.location.origin}/extensions/code/${id}.js`,
   );
 }
 
@@ -72,16 +72,17 @@ export default function ExtensionCard({ ext }) {
             <button onClick={() => copyUrlExt(ext.id)}>URL</button>
           </div>
           <div className="row">
-            {Object.entries(PLATFORM_LINKS).map(([key, { url, icon, alt, title }]) =>
-              ext.canBeUsedOn[key] ? (
-                <button
-                  className="platform-btn"
-                  key={key}
-                  onClick={() => window.open(url, "_blank")}
-                >
-                  <img src={icon} alt={alt} title={title} />
-                </button>
-              ) : null
+            {Object.entries(PLATFORM_LINKS).map(
+              ([key, { url, icon, alt, title }]) =>
+                ext.canBeUsedOn[key] ? (
+                  <button
+                    className="platform-btn"
+                    key={key}
+                    onClick={() => window.open(url, "_blank")}
+                  >
+                    <img src={icon} alt={alt} title={title} />
+                  </button>
+                ) : null,
             )}
           </div>
         </div>
@@ -91,13 +92,19 @@ export default function ExtensionCard({ ext }) {
         <p className="title">
           {ext.name}
           {ext.deprecated && (
-            <img src="/icons/headstone.svg" alt="Deprecated" className="ext-icon" />
+            <img
+              src="/icons/headstone.svg"
+              alt="Deprecated"
+              className="ext-icon"
+            />
           )}
           {ext.updated && (
             <img src="/icons/sparkles.svg" alt="Updated" className="ext-icon" />
           )}
         </p>
-        <p className="description">{ext.description}</p>
+        <p className="description">
+          {`${ext.description} ${ext.author ? "Made by " + ext.author + "." : ""}`.trim()}
+        </p>
       </div>
     </div>
   );

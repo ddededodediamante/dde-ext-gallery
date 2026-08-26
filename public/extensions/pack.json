@@ -8,42 +8,42 @@
       "slug": "code/spriteController",
       "id": "spriteController",
       "name": "Sprite Controller",
-      "description": "Control or send events to sprites",
+      "description": "Control or send events to sprites.",
       "image": "thumbnail/spriteController.svg"
     },
     {
       "slug": "code/sweetAlert2",
       "id": "sweetAlert2",
       "name": "Sweet Alerts",
-      "description": "Display customizable alerts and popups",
+      "description": "Display customizable alerts and popups.",
       "image": "thumbnail/sweetAlert2.svg"
     },
     {
       "slug": "code/stringMutilation",
       "id": "stringMutilation",
       "name": "String Mutilation",
-      "description": "Modify a string in various ways",
+      "description": "Modify a string in various ways.",
       "image": "thumbnail/stringMutilation.png"
     },
     {
       "slug": "code/measurementFormat",
       "id": "measurementFormat",
       "name": "Measurement Format",
-      "description": "Convert & format units",
+      "description": "Convert & format units.",
       "image": "thumbnail/measurementFormat.svg"
     },
     {
       "slug": "code/speechSynthesis",
       "id": "speechSynthesis",
       "name": "Speech Synthesis",
-      "description": "Play and customize TTS audio",
+      "description": "Play and customize TTS audio.",
       "image": "thumbnail/speechSynthesis.svg"
     },
     {
       "slug": "code/nasaMediaSearch",
       "id": "nasaMediaSearch",
       "name": "Nasa Media Search",
-      "description": "Search for images on Nasa's public database",
+      "description": "Search for images on Nasa's public database.",
       "image": "thumbnail/nasaMediaSearch.svg"
     },
     {
@@ -57,7 +57,7 @@
       "slug": "code/poopExtension",
       "id": "poopExtension",
       "name": "Poop Extension",
-      "description": "The best poop ever",
+      "description": "The best poop ever!",
       "image": "thumbnail/poopExtension.svg"
     },
     {
@@ -71,15 +71,17 @@
       "slug": "code/posenet2scratch",
       "id": "posenet2scratch",
       "name": "Posenet2Scratch",
-      "description": "Detect human poses fast using a webcam. (MADE BY: champierre)",
-      "image": "thumbnail/posenet2scratch.png"
+      "description": "Detect human poses fast using a webcam.",
+      "image": "thumbnail/posenet2scratch.png",
+      "author": "champierre"
     },
     {
       "slug": "code/facemesh2scratch",
       "id": "facemesh2scratch",
       "name": "Facemesh2Scratch",
-      "description": "Get human faces as meshes using a webcam. (MADE BY: champierre)",
-      "image": "thumbnail/facemesh2scratch.png"
+      "description": "Get human faces as meshes using a webcam.",
+      "image": "thumbnail/facemesh2scratch.png",
+      "author": "champierre"
     }
   ]
 }
