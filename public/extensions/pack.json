@@ -26,13 +26,6 @@
       "image": "thumbnail/stringMutilation.png"
     },
     {
-      "slug": "code/dateFormatV2",
-      "id": "dateFormatV2",
-      "name": "Date Format",
-      "description": "Manage & format dates and time",
-      "image": "thumbnail/dateFormatV2.svg"
-    },
-    {
       "slug": "code/measurementFormat",
       "id": "measurementFormat",
       "name": "Measurement Format",
@@ -54,13 +47,6 @@
       "image": "thumbnail/nasaMediaSearch.svg"
     },
     {
-      "slug": "code/superBooleans",
-      "id": "superBooleans",
-      "name": "Super Booleans",
-      "description": "Overly complex booleans",
-      "image": "thumbnail/superBooleans.svg"
-    },
-    {
       "slug": "code/potatoExtension",
       "id": "potatoExtension",
       "name": "Potato Extension",
@@ -80,13 +66,6 @@
       "name": "Subway Surfers",
       "description": "Watch Subway Surfers while you're coding. Multitask!",
       "image": "thumbnail/subwaySurfers.png"
-    },
-    {
-      "slug": "code/subwaySurfersV2",
-      "id": "subwaySurfersV2",
-      "name": "Subway Surfers V2",
-      "description": "The cool sibling of the original Subway Surfers extension.",
-      "image": "thumbnail/subwaySurfersV2.jpg"
     },
     {
       "slug": "code/posenet2scratch",

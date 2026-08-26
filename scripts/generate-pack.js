@@ -15,7 +15,7 @@ const pack = {
     tag: "dde",
   },
   extensions: extensions
-    .filter((ext) => !ext.hidden)
+    .filter((ext) => !ext.hidden && ext.canBeUsedOn.nb)
     .map((ext) => ({
       slug: `code/${ext.id}`,
       id: ext.id,
@@ -26,4 +26,4 @@ const pack = {
 };
 
 writeFileSync(outputPath, JSON.stringify(pack, null, 2) + "\n");
-console.log(`Generated ${pack.extensions.length} extensions -> pack.json`);
+console.log(`Generated ${pack.extensions.length} extensions`);
