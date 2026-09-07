@@ -424,7 +424,7 @@
 
     getrandomsprite() {
       const sprites = this.allsprites();
-      return sprites[Math.floor(Math.random() * sprites.length)];
+      return sprites[Math.floor(Math.random() * sprites.length)].value;
     }
 
     getcurrentsprite(args, util) {
