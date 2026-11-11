@@ -296,7 +296,7 @@
             hideFromPalette: isPM,
             arguments: {
               speak: {
-                type: Scratch.ArgumentType.NUMBER,
+                type: Scratch.ArgumentType.STRING,
                 defaultValue: "Hello!",
               },
               spritemenu: {
@@ -312,7 +312,7 @@
             hideFromPalette: isPM,
             arguments: {
               think: {
-                type: Scratch.ArgumentType.NUMBER,
+                type: Scratch.ArgumentType.STRING,
                 defaultValue: "Hmm...",
               },
               spritemenu: {
